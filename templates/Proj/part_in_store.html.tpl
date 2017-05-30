@@ -28,6 +28,8 @@
                 <th>{SorterBootstrap:part_code}</th>
                 <th>{SorterBootstrap:store_code}</th>
                 <th>{SorterBootstrap:quantity}</th>
+                <th>{SorterBootstrap:name}</th>
+
 
             </tr>
             </thead>
@@ -37,6 +39,8 @@
                 <td><a href="part_record/open/{part_code}">{part_code}</a></td>
                 <td>{store_code}</td>
                 <td>{quantity}</td>
+                <td>{name}</td>
+
 
             </tr>
             <!-- END Parts -->

@@ -20,7 +20,16 @@
                     <input type="text" value="{s_store_code}" name="s_store_code" id="s_store_code" placeholder="{RES:store_code}" class="form-control">
                 </div>
             </div>
-        </div>
+
+            <div class="form-group row">
+                <label class="col-sm-2 control-label text-right"><label>store_code</label></label>
+                <div class="col-sm-10">
+                    <input type="text" value="{s_name}" name="s_name" id="s_name" placeholder="Nome Magazzino" class="form-control">
+                </div>
+            </div>
+
+
+</div>
         <div class="panel-footer">
             <div class="form-group row">
                 <label class="col-sm-2 control-label">&nbsp;</label>
@@ -37,4 +46,5 @@
 <script type="text/javascript">
     var element = document.getElementById('s_quantity');
     element.value = '{s_quantity}';
+
 </script>
