@@ -1,4 +1,5 @@
 #Comment: Loads translations defined
+#Load:locales/it-it/controllers/Proj/StoreRecord.txt
 
 ProjectName=Gestione Magazzino
 part_code=Codice Parte
