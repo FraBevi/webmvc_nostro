@@ -41,7 +41,6 @@
                 <td>{quantity}</td>
                 <td>{name}</td>
 
-
             </tr>
             <!-- END Parts -->
             </tbody>
