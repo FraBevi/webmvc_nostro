@@ -1,0 +1,14 @@
+#Comment: Loads translations defined
+#Load:locales/en/controllers/Proj/PartInStoreC.txt
+
+StoreManager=Store Manager
+measurement_unit_code_select_value=Select measurment code
+store_type=Select store type
+store_type_code=Store type
+part_category_code_value=Select part category
+errormsg=There were errors:
+New_Record=Add a new store
+Edit_Record=Edit Part record. Part code
+errormsg = There were the following errors:
+AddNewPart= Add a new part
+store_name=Store name
