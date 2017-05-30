@@ -29,6 +29,7 @@ class MoveV extends View
             $this->setVar("movement_date",$part->movement_date);
             $this->setVar("part_code",$part->part_code);
             $this->setVar("store_code",$part->store_code);
+            $this->setVar("operation_type",$part->operation_type);
             $this->setVar("quantity",$part->quantity);
 
             $this->parseCurrentBlock();
@@ -74,7 +75,6 @@ class MoveV extends View
         return $sorterPartCode;
     }
 
-
     /**
      * Make sorter for description field
      * @return SorterBootstrap
@@ -103,6 +103,16 @@ class MoveV extends View
         return $sorterQuantity;
     }
 
+
+    public function makeSoterOperation(MoveModel $model)
+    {
+        $sorterOperation = new SorterBootstrap();
+        $sorterOperation->setName("operation_type");
+        $sorterOperation->field = "operation_type";
+        $sorterOperation->caption = "{RES:operation_type}";
+        $sorterOperation->init($model);
+        return $sorterOperation;
+    }
     public function makeSoterName(MoveModel $model)
     {
         $sorterName = new SorterBootstrap();

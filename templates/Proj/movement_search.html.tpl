@@ -59,6 +59,9 @@
     </form>
 </div>
 <script type="text/javascript">
+    var element1= document.getElementsById('s_operation_type');
+    element1.value = '{s_operation_type}';
+
     var element = document.getElementById('s_quantity');
     element.value = '{s_quantity}';
 

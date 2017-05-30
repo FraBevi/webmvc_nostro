@@ -31,7 +31,9 @@ class MoveM extends Model
               movement_date,
               part_code,
               store_code,
+              operation_type,
               quantity
+              
               
             FROM 
               good_movement
