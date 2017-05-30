@@ -12675,7 +12675,7 @@ $.widget( "mobile.selectmenu", $.mobile.selectmenu, {
 	_handleListItemClick: function( event ) {
 		var listItem = $( event.target ).closest( "li" ),
 
-			// Index of option tag to be selected
+			// MainPage of option tag to be selected
 			oldIndex = this.select[ 0 ].selectedIndex,
 			newIndex = $.mobile.getAttribute( listItem, "option-index" ),
 			option = this._selectOptions().eq( newIndex )[ 0 ];

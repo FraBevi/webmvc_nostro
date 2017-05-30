@@ -177,7 +177,7 @@ class Dispatcher
             // if root child subsystem
                 $this->controllerClass = "controllers\\". $this->currentSubSystem . $this->underscoreToCamelCase("index",true);
                 $this->controllerSEOClassName = strtolower("index");
-                // throw new ControllerNotFoundException("No Index");
+                // throw new ControllerNotFoundException("No MainPage");
             }
         }
 

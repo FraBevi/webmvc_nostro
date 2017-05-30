@@ -66,7 +66,7 @@ class BeanOrderMacroActivity extends MySqlRecord implements Bean
      * Field information:
      *  - Data type: int(11)
      *  - Null : NO
-     *  - DB Index: MUL
+     *  - DB MainPage: MUL
      *  - Default: 
      *  - Extra:  
      * @var int $orderId
@@ -80,7 +80,7 @@ class BeanOrderMacroActivity extends MySqlRecord implements Bean
      * Field information:
      *  - Data type: varchar(200)
      *  - Null : YES
-     *  - DB Index: 
+     *  - DB MainPage:
      *  - Default: 
      *  - Extra:  
      * @var string $activityName
@@ -94,7 +94,7 @@ class BeanOrderMacroActivity extends MySqlRecord implements Bean
      * Field information:
      *  - Data type: decimal(11,2)
      *  - Null : YES
-     *  - DB Index: 
+     *  - DB MainPage:
      *  - Default: 
      *  - Extra:  
      * @var float $cost
@@ -108,7 +108,7 @@ class BeanOrderMacroActivity extends MySqlRecord implements Bean
      * Field information:
      *  - Data type: string|date
      *  - Null : YES
-     *  - DB Index: 
+     *  - DB MainPage:
      *  - Default: 
      *  - Extra:  
      * @var string $startTime
@@ -122,7 +122,7 @@ class BeanOrderMacroActivity extends MySqlRecord implements Bean
      * Field information:
      *  - Data type: string|date
      *  - Null : YES
-     *  - DB Index: 
+     *  - DB MainPage:
      *  - Default: 
      *  - Extra:  
      * @var string $endTime

@@ -66,7 +66,7 @@ class BeanCustomerOrder extends MySqlRecord implements Bean
      * Field information:
      *  - Data type: string|date
      *  - Null : YES
-     *  - DB Index: 
+     *  - DB MainPage:
      *  - Default: 
      *  - Extra:  
      * @var string $orderDate
@@ -80,7 +80,7 @@ class BeanCustomerOrder extends MySqlRecord implements Bean
      * Field information:
      *  - Data type: int(11)
      *  - Null : NO
-     *  - DB Index: MUL
+     *  - DB MainPage: MUL
      *  - Default: 
      *  - Extra:  
      * @var int $customerId
@@ -94,7 +94,7 @@ class BeanCustomerOrder extends MySqlRecord implements Bean
      * Field information:
      *  - Data type: int(11)
      *  - Null : NO
-     *  - DB Index: MUL
+     *  - DB MainPage: MUL
      *  - Default: 
      *  - Extra:  
      * @var int $orderStatusId

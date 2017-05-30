@@ -52,7 +52,7 @@ class BeanBom extends MySqlRecord
      * Field information:
      *  - Data type: varchar(40)
      *  - Null : NO
-     *  - DB Index: PRI
+     *  - DB MainPage: PRI
      *  - Default: 
      *  - Extra:  
      * @var string $parentPartCode
@@ -66,7 +66,7 @@ class BeanBom extends MySqlRecord
      * Field information:
      *  - Data type: varchar(40)
      *  - Null : NO
-     *  - DB Index: PRI
+     *  - DB MainPage: PRI
      *  - Default: 
      *  - Extra:  
      * @var string $childPartCode
@@ -80,7 +80,7 @@ class BeanBom extends MySqlRecord
      * Field information:
      *  - Data type: int(11)
      *  - Null : YES
-     *  - DB Index: 
+     *  - DB MainPage:
      *  - Default: 
      *  - Extra:  
      * @var int $quantity

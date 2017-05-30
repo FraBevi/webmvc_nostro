@@ -1,6 +1,6 @@
 <?php
 /**
- * Class Index
+ * Class MainPage
  *
  * {ControllerResponsability}
  *
@@ -44,8 +44,8 @@ class Index extends Controller
     }
 
     /**
-    * Inizialize the View by loading static design of /examples/index.html.tpl
-    * managed by views\examples\Index class
+    * Inizialize the View by loading static design of /examples/mainpage.html.tpl
+    * managed by views\examples\MainPage class
     *
     */
     public function getView()
@@ -55,7 +55,7 @@ class Index extends Controller
     }
 
     /**
-    * Inizialize the Model by loading models\examples\Index class
+    * Inizialize the Model by loading models\examples\MainPage class
     *
     */
     public function getModel()

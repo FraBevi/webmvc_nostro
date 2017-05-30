@@ -296,7 +296,7 @@ function updateContent(index) {
 
 // Shows information about the observer
 function showStatus(index){
-    console.log('Index:' + index);
+    console.log('MainPage:' + index);
     console.log('Polling interval:' + pollingInterval[index]);
     console.log('Observes content:' + contentCheck[index]);
     console.log('Controller state:' + controllerState[index]);

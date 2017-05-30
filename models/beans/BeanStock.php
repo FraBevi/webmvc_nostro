@@ -52,7 +52,7 @@ class BeanStock extends MySqlRecord
      * Field information:
      *  - Data type: int(11)
      *  - Null : NO
-     *  - DB Index: PRI
+     *  - DB MainPage: PRI
      *  - Default: 
      *  - Extra:  
      * @var int $storeCode
@@ -66,7 +66,7 @@ class BeanStock extends MySqlRecord
      * Field information:
      *  - Data type: varchar(40)
      *  - Null : NO
-     *  - DB Index: PRI
+     *  - DB MainPage: PRI
      *  - Default: 
      *  - Extra:  
      * @var string $partCode
@@ -80,7 +80,7 @@ class BeanStock extends MySqlRecord
      * Field information:
      *  - Data type: decimal(11,2)
      *  - Null : YES
-     *  - DB Index: 
+     *  - DB MainPage:
      *  - Default: 
      *  - Extra:  
      * @var float $quantity
