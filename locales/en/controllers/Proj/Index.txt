@@ -1,0 +1,15 @@
+ProjectName=Store Manager
+Contacts=Contacts
+Setting=Settings
+LanguageSettings=Language Settings
+English=English
+Italian=Italian
+GuiSettings=Gui Settings
+LookAndFeel=Look and Feel
+Exit=Exit
+
+welcome=Welcome to the Store Manager
+link=Use the following link to run the desired tool:
+note=
+store_management=Parts in Store
+movement_management=Movement management
