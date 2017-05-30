@@ -115,7 +115,6 @@ class MoveC extends Controller
         // Set component name
         $searcher->setName("ricerca");
 
-
         // Creates filters:
         // parameters: table field, form input, operators into query, data type
         $searcher->addFilter("good_movement_id","s_good_movement_id","=","string");
