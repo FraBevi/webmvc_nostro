@@ -30,6 +30,7 @@
                 <th>{SorterBootstrap:movement_date}</th>
                 <th>{SorterBootstrap:part_code}</th>
                 <th>{SorterBootstrap:store_code}</th>
+                <th>{SorterBootstrap:operation_type}</th>
                 <th>{SorterBootstrap:quantity}</th>
 
 
@@ -39,10 +40,11 @@
             <tbody>
             <!-- BEGIN Parts -->
             <tr>
-                <td><a href="part_record/open/{part_code}">{part_code}</a></td>
-                <td>{good_movement_id}</td>
+                <td><a href="part_record/open/{good_movement_id}">{good_movement_id}</a></td>
                 <td>{movement_date}</td>
+                <td>{part_code}</td>
                 <td>{store_code}</td>
+                <td>{operation_type}</td>
                 <td>{quantity}</td>
 
 
