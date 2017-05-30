@@ -22,7 +22,7 @@
             </div>
 
             <div class="form-group row">
-                <label class="col-sm-2 control-label text-right"><label>store_code</label></label>
+                <label class="col-sm-2 control-label text-right"><label>{RES:store_name}</label></label>
                 <div class="col-sm-10">
                     <input type="text" value="{s_name}" name="s_name" id="s_name" placeholder="Nome Magazzino" class="form-control">
                 </div>
