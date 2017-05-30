@@ -1,0 +1,6 @@
+#Load:locales/en/controllers/Proj/PartInStoreC.txt
+#Load:locales/en/controllers/Proj/StoreRecord.txt
+
+good_movement_id=Movement ID
+movement_date=Movement Date
+add_part=Add Movement

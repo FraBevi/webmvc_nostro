@@ -1,0 +1,6 @@
+#Load:locales/it-it/controllers/Proj/PartInStoreC.txt
+#Load:locales/it-it/controllers/Proj/StoreRecord.txt
+
+good_movement_id=ID movimentazione
+movement_date=Data movimentazione
+add_part=Aggiungi Movimentazione
