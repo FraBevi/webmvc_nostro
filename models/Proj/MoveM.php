@@ -18,7 +18,7 @@ use framework\Model;
  *
  * @package models\examples\db
  */
-class PartInStoreM extends Model
+class MoveM extends Model
 {
     public function __construct()
     {
@@ -27,13 +27,14 @@ class PartInStoreM extends Model
             <<<SQL
         
                         SELECT  
+              good_movement_id,
+              movement_date,
               part_code,
-              store_code, 
-              quantity,
-              stock_store.name
+              store_code,
+              quantity
               
             FROM 
-              stock_store
+              good_movement
               
              
 SQL;

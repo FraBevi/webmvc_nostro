@@ -8,6 +8,7 @@ use framework\View;
 
 // Use related applications View and Model
 use models\Proj\PartInStoreM;
+use function PHPSTORM_META\type;
 use views\ProJ\PartInStoreV as PartInStoreView;
 use models\Proj\PartInStoreM as PartInStoreModel;
 
@@ -37,20 +38,14 @@ class PartInStoreC extends Controller
         parent::__construct($this->view,$this->model);
     }
 
-    /**
-     * Helper method to associate View
-     * @return PartListManagerView
-     */
+
     public function getView()
     {
         $view = new PartInStoreV();
         return $view;
     }
 
-    /**
-     * Helper Method to associate Model
-     * @return PartInStoreModel
-     */
+
     public function getModel()
     {
         $model = new PartInStoreModel();
@@ -65,19 +60,14 @@ class PartInStoreC extends Controller
         // Builds child controller
         $navigation = $this->makeNavigation();
 
-        // Build components making care to use the following
-        // components creation order:
-        // 1st Searcher
-        // 2nd Sorters
-        // 3rd Pagination
-        // 4th Selection
-        // (Note: order is similar to SQL query procesor execution order)
+
 
         $searcher = $this->makeSearcher();
 
         $sorterPartCode = $this->view->makeSoterPartCode($this->model);
         $sorterStoreCode = $this->view->makeSoterStoreCODE($this->model);
         $sorterQuantity = $this->view->makeSoterQuantity($this->model);
+        $sorterName = $this->view->makeSoterName($this->model);
 
 
         $pagination = $this->makePagination();
@@ -93,6 +83,7 @@ class PartInStoreC extends Controller
         $this->bindComponent($sorterPartCode);
         $this->bindComponent($sorterStoreCode);
         $this->bindComponent($sorterQuantity);
+        $this->bindComponent($sorterName);
 
 
         $this->bindComponent($pagination);
@@ -123,6 +114,7 @@ class PartInStoreC extends Controller
         $searcher->addFilter("part_code","s_part_code","=","string");
         $searcher->addFilter("store_code","s_store_code","LIKE","string");
         $searcher->addFilter("quantity","s_quantity","=","int");
+        $searcher->addFilter("name","s_name","=","string");
 
         // Sets form name (tpl variable)
         $searcher->setFormName("search_form", $searcher->getName());

@@ -4,8 +4,8 @@ namespace views\Proj;
 
 use framework\View;
 use framework\components\bootstrap\SorterBootstrap;
-use models\Proj\PartInStoreM as PartInStoreModel;
-use models\Proj\PartInStoreM;
+use models\Proj\MoveM as MoveModel;
+use models\Proj\MoveM;
 
 /**
  * Class PartListManager
@@ -13,22 +13,24 @@ use models\Proj\PartInStoreM;
  *
  * @package views\examples\db
  */
-class PartInStoreV extends View
+class MoveV extends View
 {
     public function __construct($tplName = null)
     {
         if (empty($tplName))
-            $tplName = "Proj/part_in_store";
+            $tplName = "Proj/movement";
         parent::__construct($tplName);
     }
 
     public function setBlockParts(\mysqli_result $resultset){
         $this->openBlock("Parts");
         while ($part = $resultset->fetch_object()) {
+            $this->setVar("good_movement_id",$part->good_movement_id);
+            $this->setVar("movement_date",$part->movement_date);
             $this->setVar("part_code",$part->part_code);
             $this->setVar("store_code",$part->store_code);
             $this->setVar("quantity",$part->quantity);
-            $this->setVar("name",$part->name);
+
             $this->parseCurrentBlock();
         }
         $this->setBlock();
@@ -38,7 +40,30 @@ class PartInStoreV extends View
      * Makes sorter for part_code field
      * @return SorterBootstrap
      */
-    public function makeSoterPartCode(PartInStoreModel $model)
+    public function makeSoterGoodMovementId(MoveModel $model)
+    {
+
+        $sorterGoodMovementId = new SorterBootstrap();
+        $sorterGoodMovementId->setName("good_movement_id");
+        $sorterGoodMovementId->field = "good_movement_id";
+        $sorterGoodMovementId->caption = "{RES:good_movement_id}";
+        $sorterGoodMovementId->init($model);
+        return $sorterGoodMovementId;
+    }
+
+    public function makeSoterMovementDate(MoveModel $model)
+    {
+
+        $sorterMovementDate = new SorterBootstrap();
+        $sorterMovementDate->setName("movement_date");
+        $sorterMovementDate->field = "movement_date";
+        $sorterMovementDate->caption = "{RES:movement_date}";
+        $sorterMovementDate->init($model);
+        return $sorterMovementDate;
+    }
+
+
+    public function makeSoterPartCode(MoveModel $model)
     {
 
         $sorterPartCode = new SorterBootstrap();
@@ -54,7 +79,7 @@ class PartInStoreV extends View
      * Make sorter for description field
      * @return SorterBootstrap
      */
-    public function makeSoterStoreCode(PartInStoreModel $model)
+    public function makeSoterStoreCode(MoveModel $model)
     {
         $sorterStoreCode = new SorterBootstrap();
         $sorterStoreCode->setName("store_code");
@@ -68,7 +93,7 @@ class PartInStoreV extends View
      * Make sorter for source field
      * @return SorterBootstrap
      */
-    public function makeSoterQuantity(PartInStoreModel $model)
+    public function makeSoterQuantity(MoveModel $model)
     {
         $sorterQuantity = new SorterBootstrap();
         $sorterQuantity->setName("quantity");
@@ -78,7 +103,7 @@ class PartInStoreV extends View
         return $sorterQuantity;
     }
 
-    public function makeSoterName(PartInStoreModel $model)
+    public function makeSoterName(MoveModel $model)
     {
         $sorterName = new SorterBootstrap();
         $sorterName->setName("name");
