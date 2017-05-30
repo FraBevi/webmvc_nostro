@@ -4,3 +4,4 @@
 good_movement_id=Movement ID
 movement_date=Movement Date
 add_part=Add Movement
+title=Movement
