@@ -21,6 +21,8 @@ class Index extends Controller
     protected $view;
     protected $model;
 
+
+
     /**
     * Object constructor.
     *
