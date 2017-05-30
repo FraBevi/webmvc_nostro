@@ -1,6 +1,5 @@
 #Comment: Loads translations defined
 
-
 ProjectName=Store Management
 part_code=Code
 part=Part
