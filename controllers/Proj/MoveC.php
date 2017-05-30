@@ -28,6 +28,8 @@ use views\Proj\MoveV;
  *
  * @package controllers\examples\db
  */
+
+
 class MoveC extends Controller
 {
 
