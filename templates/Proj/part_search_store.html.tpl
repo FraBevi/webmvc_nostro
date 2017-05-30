@@ -15,6 +15,7 @@
                 </div>
             </div>
 
+
             <div class="form-group row">
                 <label class="col-sm-2 control-label text-right"><label>{RES:store}</label></label>
                 <div class="col-sm-10">
@@ -42,10 +43,12 @@
         </div>
 
 
+
     </form>
 </div>
 <script type="text/javascript">
     var element = document.getElementById('s_quantity');
     element.value = '{s_quantity}';
+
 
 </script>
