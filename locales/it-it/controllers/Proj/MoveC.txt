@@ -4,3 +4,4 @@
 good_movement_id=ID movimentazione
 movement_date=Data movimentazione
 add_part=Aggiungi Movimentazione
+
