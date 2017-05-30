@@ -20,7 +20,7 @@
     <h1>{RES:title2}</h1>
 
     {Searcher:ricerca}
-    <a href="part_record/add/new" class="btn btn-info"><span class="glyphicon glyphicon-plus-sign"></span> {RES:add_part}</a>
+    <a href="store_record/add/new" class="btn btn-info"><span class="glyphicon glyphicon-plus-sign"></span> {RES:add_part}</a>
     <div class="table table-responsive">
         <table class="table table-bordered">
             <thead>
@@ -36,7 +36,7 @@
             <tbody>
             <!-- BEGIN Parts -->
             <tr>
-                <td><a href="part_record/open/{part_code}">{part_code}</a></td>
+                <td><a href="store_record/open/{part_code}">{part_code}</a></td>
                 <td>{store_code}</td>
                 <td>{quantity}</td>
                 <td>{name}</td>
