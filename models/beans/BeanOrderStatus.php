@@ -66,7 +66,7 @@ class BeanOrderStatus extends MySqlRecord implements Bean
      * Field information:
      *  - Data type: varchar(45)
      *  - Null : YES
-     *  - DB Index: 
+     *  - DB MainPage:
      *  - Default: 
      *  - Extra:  
      * @var string $name

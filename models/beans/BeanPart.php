@@ -66,7 +66,7 @@ class BeanPart extends MySqlRecord implements Bean
      * Field information:
      *  - Data type: varchar(45)
      *  - Null : YES
-     *  - DB Index: 
+     *  - DB MainPage:
      *  - Default: 
      *  - Extra:  
      * @var string $description
@@ -80,7 +80,7 @@ class BeanPart extends MySqlRecord implements Bean
      * Field information:
      *  - Data type: enum('MAKE','BUY')
      *  - Null : YES
-     *  - DB Index: 
+     *  - DB MainPage:
      *  - Default: 
      *  - Extra:  
      * @var string $source
@@ -94,7 +94,7 @@ class BeanPart extends MySqlRecord implements Bean
      * Field information:
      *  - Data type: int(11)
      *  - Null : YES
-     *  - DB Index: 
+     *  - DB MainPage:
      *  - Default: 
      *  - Extra:  
      * @var int $sourceLeadTime
@@ -108,7 +108,7 @@ class BeanPart extends MySqlRecord implements Bean
      * Field information:
      *  - Data type: varchar(10)
      *  - Null : NO
-     *  - DB Index: MUL
+     *  - DB MainPage: MUL
      *  - Default: 
      *  - Extra:  
      * @var string $measurementUnitCode
@@ -122,7 +122,7 @@ class BeanPart extends MySqlRecord implements Bean
      * Field information:
      *  - Data type: varchar(20)
      *  - Null : NO
-     *  - DB Index: MUL
+     *  - DB MainPage: MUL
      *  - Default: 
      *  - Extra:  
      * @var string $partTypeCode
@@ -136,7 +136,7 @@ class BeanPart extends MySqlRecord implements Bean
      * Field information:
      *  - Data type: varchar(20)
      *  - Null : NO
-     *  - DB Index: MUL
+     *  - DB MainPage: MUL
      *  - Default: 
      *  - Extra:  
      * @var string $partCategoryCode
@@ -150,7 +150,7 @@ class BeanPart extends MySqlRecord implements Bean
      * Field information:
      *  - Data type: float
      *  - Null : YES
-     *  - DB Index: 
+     *  - DB MainPage:
      *  - Default: 
      *  - Extra:  
      * @var float $wastage
@@ -164,7 +164,7 @@ class BeanPart extends MySqlRecord implements Bean
      * Field information:
      *  - Data type: int(11)
      *  - Null : YES
-     *  - DB Index: 
+     *  - DB MainPage:
      *  - Default: 
      *  - Extra:  
      * @var int $bomLevels
