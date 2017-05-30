@@ -1,0 +1,14 @@
+ProjectName=Gestore Magazzino
+Contacts=Contatti
+Setting=Impostazioni
+LanguageSettings=Impostazioni Lingua
+English=Inglese
+Italian=Italiano
+GuiSettings=Impostazioni GUI
+LookAndFeel=Aspetto
+Exit=Uscita
+welcome=Benvenuto nel gestore del magazzino
+link=Usa i seguenti link per utilizzare lo strumento desiderato:
+note=
+store_management=Parti in magazzino
+movement_management=Gestione movimentazione
