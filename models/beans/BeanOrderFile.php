@@ -66,7 +66,7 @@ class BeanOrderFile extends MySqlRecord implements Bean
      * Field information:
      *  - Data type: varchar(45)
      *  - Null : YES
-     *  - DB Index: 
+     *  - DB MainPage:
      *  - Default: 
      *  - Extra:  
      * @var string $name
@@ -80,7 +80,7 @@ class BeanOrderFile extends MySqlRecord implements Bean
      * Field information:
      *  - Data type: varchar(45)
      *  - Null : YES
-     *  - DB Index: 
+     *  - DB MainPage:
      *  - Default: 
      *  - Extra:  
      * @var string $path
@@ -94,7 +94,7 @@ class BeanOrderFile extends MySqlRecord implements Bean
      * Field information:
      *  - Data type: int(11)
      *  - Null : NO
-     *  - DB Index: MUL
+     *  - DB MainPage: MUL
      *  - Default: 
      *  - Extra:  
      * @var int $orderId
@@ -108,7 +108,7 @@ class BeanOrderFile extends MySqlRecord implements Bean
      * Field information:
      *  - Data type: int(11)
      *  - Null : NO
-     *  - DB Index: MUL
+     *  - DB MainPage: MUL
      *  - Default: 
      *  - Extra:  
      * @var int $fileTypeId
@@ -122,7 +122,7 @@ class BeanOrderFile extends MySqlRecord implements Bean
      * Field information:
      *  - Data type: varchar(10)
      *  - Null : YES
-     *  - DB Index: 
+     *  - DB MainPage:
      *  - Default: 
      *  - Extra:  
      * @var string $revisionN
@@ -136,7 +136,7 @@ class BeanOrderFile extends MySqlRecord implements Bean
      * Field information:
      *  - Data type: string|date
      *  - Null : YES
-     *  - DB Index: 
+     *  - DB MainPage:
      *  - Default: 
      *  - Extra:  
      * @var string $revisionDate
