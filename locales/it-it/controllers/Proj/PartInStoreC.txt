@@ -20,4 +20,4 @@ title2=Parti in magazzino
 add_part=Aggiungi Magazzino
 search=Ricerca
 reset=Reset
-store_name=Nome Magazzino
+store_name=Nome Magazzini
