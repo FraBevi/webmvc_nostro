@@ -1,0 +1,22 @@
+#Comment: Loads translations defined
+
+ProjectName=Gestione Magazzino
+part_code=Codice Parte
+part=Parte
+store=Magazzino
+store_code=Codice Magazzino
+description=Descrizione
+Contacts=Contatti
+quantity=Quantità
+Setting=Impostazioni
+LanguageSettings=Impostazioni Lingua
+English=Inglese
+Italian=Italiano
+GuiSettings=Impostazioni GUI
+LookAndFeel=Aspetto
+Exit=Uscita
+title=Ricerca parti in magazzino
+title2=Parti in magazzino
+add_part=Aggiungi Magazzino
+search=Ricerca
+reset=Reset

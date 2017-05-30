@@ -1,0 +1,22 @@
+#Comment: Loads translations defined
+
+ProjectName=Store Management
+part_code=Code
+part=Part
+store=Store
+store_code=Store Code
+quantity=Quantity
+description=Description
+Contacts=Contacts
+Setting=Settings
+LanguageSettings=Language Settings
+English=English
+Italian=Italian
+GuiSettings=Gui Settings
+LookAndFeel=Look and Feel
+Exit=Exit
+title=Search Parts in Store
+title2=Parts in Store
+add_part=Add Store
+search=Search
+reset=Reset

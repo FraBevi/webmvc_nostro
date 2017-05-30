@@ -1,0 +1,14 @@
+#Comment: Loads translations defined
+#Load:locales/it-it/controllers/Proj/PartInStoreC.txt
+
+StoreManager=Scheda Magazzino
+measurement_unit_code_select_value=Seleziona l'unità di misura
+store_type=Seleziona tipologia magazzino
+store_type_code=Tipologia magazzino
+part_category_code_value=Select la categoria della parte
+errormsg=Si sono verificati errori:
+New_Record=Aggiungi un nuovo magazzino
+Edit_Record=Modifica prodotto/parte. Codice:
+errormsg= Si sono verificati i seguenti errori:
+AddNewPart= Aggiungi una nuova parte
+store_name=Nome magazzino
