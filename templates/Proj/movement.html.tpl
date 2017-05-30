@@ -17,7 +17,7 @@
 <body>
 {Controller:examples\cms\NavigationBar}
 <div class="container">
-    <h1>MovimentazZzione</h1>
+    <h1>{RES : title}</h1>
 
     {Searcher:ricerca}
     <a href="part_record/add/new" class="btn btn-info"><span class="glyphicon glyphicon-plus-sign"></span> {RES:add_part}</a>

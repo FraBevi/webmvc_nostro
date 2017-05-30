@@ -13,7 +13,7 @@
 
 
             <div class="form-group row">
-                <label class="col-sm-2 control-label text-right"><label>store_code</label></label>
+                <label class="col-sm-2 control-label text-right"><label>{RES:good_movement_id}</label></label>
                 <div class="col-sm-10">
                     <input type="text" value="{s_good_movement_id}" name="s_good_movement_id" id="s_good_movement_id" placeholder="ID" class="form-control">
                 </div>
@@ -21,7 +21,7 @@
 
 
             <div class="form-group row">
-                <label class="col-sm-2 control-label text-right"><label>store_code</label></label>
+                <label class="col-sm-2 control-label text-right"><label>{RES:movement_date}</label></label>
                 <div class="col-sm-10">
                     <input type="text" value="{s_movement_date}" name="s_movement_date" id="s_movement_date" placeholder="date" class="form-control">
                 </div>
