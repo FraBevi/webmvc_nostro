@@ -5,7 +5,6 @@
     </div>
 
 
-
     <form class="form-horizontal" method="post" name="{search_form}">
         <div class="panel-body">
 
