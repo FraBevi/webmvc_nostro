@@ -70,6 +70,7 @@ class MoveC extends Controller
         $sorterMovementDate = $this->view->makeSoterMovementDate($this->model);
         $sorterPartCode = $this->view->makeSoterPartCode($this->model);
         $sorterStoreCode = $this->view->makeSoterStoreCODE($this->model);
+        $sorterOperation = $this->view->makeSoterOperation($this->model);
         $sorterQuantity = $this->view->makeSoterQuantity($this->model);
 
 
@@ -88,6 +89,7 @@ class MoveC extends Controller
         $this->bindComponent($sorterMovementDate);
         $this->bindComponent($sorterPartCode);
         $this->bindComponent($sorterStoreCode);
+        $this->bindComponent($sorterOperation);
         $this->bindComponent($sorterQuantity);
 
 
@@ -122,6 +124,8 @@ class MoveC extends Controller
 
         $searcher->addFilter("part_code","s_part_code","=","string");
         $searcher->addFilter("store_code","s_store_code","LIKE","string");
+        $searcher->addFilter("operation_type","s_operation_type","LIKE","string");
+
         $searcher->addFilter("quantity","s_quantity","=","int");
 
         // Sets form name (tpl variable)
