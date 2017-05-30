@@ -7,6 +7,7 @@
     <form class="form-horizontal" method="post" name="{search_form}">
         <div class="panel-body">
 
+
             <div class="form-group row">
                 <label class="col-sm-2 control-label text-right"><label>{RES:part}</label></label>
                 <div class="col-sm-10">
