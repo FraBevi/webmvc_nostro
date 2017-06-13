@@ -15,6 +15,7 @@
     <![endif]-->
 </head>
 <body>
+
 {Controller:examples\cms\NavigationBar}
 <div class="container">
     <h1>{RES:title}</h1>
