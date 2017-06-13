@@ -53,7 +53,7 @@
                         <div class="input-group-addon">
                             <i class="fa fa-th" aria-hidden="true"></i> 
                         </div>
-                        <input type="text" class="form-control" name="store_code" value="{store_code}" placeholder="ID" required {readonly}>
+                        <input type="text" class="form-control" name="good_movement_id" value="{store_code}" placeholder="ID" required {readonly}>
                     </div>
                 </div>
                 
@@ -66,7 +66,7 @@
                         <div class="input-group-addon">
                             <i class="fa fa-file-text-o" aria-hidden="true"></i>
                         </div>
-                        <input type="text" class="form-control" name="name" value="{name}" placeholder="yyyy-mm-dd" required>
+                        <input type="text" class="form-control" name="movement_date" value="{name}" placeholder="yyyy-mm-dd" required>
 
 
                     </div>
@@ -82,11 +82,9 @@
                         <div class="input-group-addon">
                             <i class="fa fa-file-text-o" aria-hidden="true"></i>
                         </div>
-                        <input type="text" class="form-control" name="name" value="{name}" placeholder="part code" required>
+                        <input type="text" class="form-control" name="part_code" value="{name}" placeholder="part code" required>
                     </div>
                 </div>
-
-
 
 
                 <div class="form-group row col-sm-12">
@@ -97,7 +95,7 @@
                         <div class="input-group-addon">
                             <i class="fa fa-sitemap" aria-hidden="true"></i>
                         </div>
-                        <select class="form-control" name="store_type_code" id="store_type_code" required>
+                        <select class="form-control" name="store_name_out" id="store_type_code" required>
                             <option value="">{RES:name_type}</option>
                             <!-- BEGIN part_type_code_list -->
                             <option value="{store}">{name}</option>
@@ -116,7 +114,7 @@
                         <div class="input-group-addon">
                             <i class="fa fa-sitemap" aria-hidden="true"></i>
                         </div>
-                        <select class="form-control" name="store_type_code" id="store_type_code" required>
+                        <select class="form-control" name="store_name_in" id="store_type_code" required>
                             <option value="">{RES:name_type}</option>
                             <!-- BEGIN part_type_code_list -->
                             <option value="{store}">{name}</option>
@@ -135,7 +133,7 @@
                         <div class="input-group-addon">
                             <i class="fa fa-file-text-o" aria-hidden="true"></i>
                         </div>
-                        <input type="text" class="form-control" name="name" value="{name}" placeholder="quantity to move" required>
+                        <input type="text" class="form-control" name="quantity" value="{name}" placeholder="quantity to move" required>
                     </div>
                 </div>
             </div>
@@ -150,8 +148,7 @@
             </div>
 
         </div>
-         <a href="http://localhost/webmvc_nostro/Proj/part_in_store_c" type="btn btn-primary">Go back</a>
-
+         <a href="http://localhost/webmvc_nostro/Proj/move_c" type="btn btn-primary">Go back</a>
 
     </form>
 
