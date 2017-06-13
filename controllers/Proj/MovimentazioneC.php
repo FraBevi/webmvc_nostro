@@ -75,7 +75,7 @@ class MovimentazioneC extends Controller
         $currentRecord = $record->getCurrentRecord();
 
         // Sets history back for button close and delete
-        $historyBack = $record->getControllerHistoryBack("movec");
+        $historyBack = $record->getControllerHistoryBack("MovimentazioneC");
         $record->redirectAfterClose = $historyBack;
         $record->redirectAfterDelete = $historyBack;
 
@@ -144,7 +144,7 @@ class MovimentazioneC extends Controller
     */
     public function getView()
     {
-        $view = new MovimentazioneView("/proj/movev");
+        $view = new MovimentazioneView("/proj/movimentazione");
         return $view;
     }
 
@@ -154,7 +154,7 @@ class MovimentazioneC extends Controller
     */
     public function getModel()
     {
-        $model = new MovimentazioneModelModel();
+        $model = new MovimentazioneModel();
         return $model;
     }
 }

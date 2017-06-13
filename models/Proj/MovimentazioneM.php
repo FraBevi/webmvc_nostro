@@ -11,6 +11,7 @@
 namespace models\Proj;
 
 use framework\Model;
+use views\Proj\MovimentazioneV;
 use views\Proj\StoreRecord as PartRecordView;
 use framework\components\DataRepeater;
 use models\beans\BeanStore;
@@ -42,10 +43,10 @@ class MovimentazioneM extends Model
      *
      * @param PartRecordView $view
      */
-    public function makePartTypeCodeList(PartRecordView $view)
+    public function makePartTypeCodeList(MovimentazioneV $view)
     {
         $storeTypeList = new Model();
-        $storeTypeList->sql= "SELECT DISTINCT store_type_code, store_type_code FROM store_type";
+        $storeTypeList->sql= "SELECT DISTINCT name FROM store";
         $storeTypeList->updateResultSet();
         $list = new DataRepeater($view,$storeTypeList,"part_type_code_list",null);
         $list->render();
