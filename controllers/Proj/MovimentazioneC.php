@@ -14,13 +14,13 @@ use framework\Controller;
 use framework\Model;
 use framework\View;
 
+use models\beans\BeanGoodMovement;
 use models\Proj\MovimentazioneM as MovimentazioneModel;
 use views\Proj\MovimentazioneV  as MovimentazioneView;
 
 use controllers\examples\cms\NavigationBar;
 
 use framework\components\Record;
-use models\beans\BeanStore;
 use framework\BeanAdapter;
 
 class MovimentazioneC extends Controller
@@ -86,7 +86,7 @@ class MovimentazioneC extends Controller
 
         // Creates BeanAclActions, its BeanAdapter and select the
         // current record
-        $bean = new BeanStore();
+        $bean = new BeanGoodMovement();
         $beanAdapter = new BeanAdapter($bean);
         $beanAdapter->select($currentRecord);
 

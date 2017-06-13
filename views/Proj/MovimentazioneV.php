@@ -11,7 +11,7 @@
 namespace views\Proj;
 
 use framework\View;
-use models\beans\BeanStore;
+use models\beans\BeanGoodMovement;
 
 class MovimentazioneV extends View
 {
@@ -32,7 +32,7 @@ class MovimentazioneV extends View
      * Update fiellds with bean data
      * @param BeanStore $bean
      */
-    public function setFieldsWithBeanData(BeanStore $bean)
+    public function setFieldsWithBeanData(BeanGoodMovement $bean)
     {
         // Switch form mode
         if ($bean->getStoreCode() == null) {
@@ -43,9 +43,9 @@ class MovimentazioneV extends View
             $this->setVar("readonly","readonly");
         }
 
-        $this->setVar("store_code",$bean->getStoreCode());
-        $this->setVar("name",$bean->getName());
-        $this->setVar("store_type_code",$bean->getStoreTypeCode());
+        $this->setVar("store_name_out",$bean->getStoreCode());
+        $this->setVar("good_movement_id",$bean->getGoodMovementId());
+        $this->setVar("movement_date",$bean->getMovementDate());
     }
 
 

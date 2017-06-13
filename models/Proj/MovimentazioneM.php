@@ -11,10 +11,9 @@
 namespace models\Proj;
 
 use framework\Model;
+use models\beans\BeanGoodMovement;
 use views\Proj\MovimentazioneV;
-use views\Proj\StoreRecord as PartRecordView;
 use framework\components\DataRepeater;
-use models\beans\BeanStore;
 
 class MovimentazioneM extends Model
 {
@@ -55,12 +54,15 @@ class MovimentazioneM extends Model
 
     /**
      * Update Table by using bean
-     * @param BeanStore $bean
+     * @param BeanGoodMovement $bean
      */
-    public function setBeanWithPostedData(BeanStore $bean)
+    public function setBeanWithPostedData(BeanGoodMovement $bean)
     {
-        $bean->setStoreCode($_POST["store_code"]);
-        $bean->setName($_POST["name"]);
-        $bean->setStoreTypeCode($_POST["store_type_code"]);
+        $bean->setGoodMovementId($_POST["good_movement_id"]);
+        $bean->setMovementDate($_POST["movement_date"]);
+        $bean->setPartCode($_POST["part_code"]);
+        $bean->setStoreCodeOut($_POST["store_name_out"]);
+        $bean->setStoreCode($_POST["store_name_in"]);
+        $bean->setQuantity($_POST["quantity"]);
     }
 }
