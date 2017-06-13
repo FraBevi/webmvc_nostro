@@ -428,6 +428,70 @@ SQL;
     }
 
     /**
+     * Move the current object into a new table row of good_movement
+     *
+     * All class attributes values defined for mapping all table fields are automatically used during inserting
+     * @return mixed MySQL insert result
+     * @category DML
+     */
+    public function move()
+    {
+        if ($this->isPkAutoIncrement) {
+            $this->goodMovementId = "";
+        }
+        // $constants = get_defined_constants();
+        $sql1 = <<< SQL
+            INSERT INTO good_movement
+            (good_movement_id,movement_date,part_code,store_code,quantity)
+            VALUES({$this->parseValue($this->goodMovementId)},
+			{$this->parseValue($this->movementDate,'notNumber')},
+			{$this->parseValue($this->partCode,'notNumber')},
+			{$this->parseValue($this->storeName)},
+			{$this->parseValue($this->storeName)},
+			{$this->parseValue($this->quantity)})
+SQL;
+
+        $part_code = mysql_result($sql1,$number,"partCode");
+        $this->resetLastSqlError();
+        $result = $this->query($sql1);
+        $this->lastSql = $sql1;
+        if (!$result) {
+            $this->lastSqlError = $this->sqlstate . " - ". $this->error;
+        } else {
+            $this->allowUpdate = true;
+            if ($this->isPkAutoIncrement) {
+                $this->goodMovementId = $this->insert_id;
+            }
+        }
+
+        $sql2 = <<< SQL
+            INSERT INTO part
+            (part_code,description,source,source_lead_time,measurement_unit_code,part_type_code,part_category_code,wastage,bom_levels)
+            VALUES({$this->parseValue($this->partCode,'notNumber')},
+			{$this->parseValue($this->description,'notNumber')},
+			{$this->parseValue($this->source,'notNumber')},
+			{$this->parseValue($this->sourceLeadTime)},
+			{$this->parseValue($this->measurementUnitCode,'notNumber')},
+			{$this->parseValue($this->partTypeCode,'notNumber')},
+			{$this->parseValue($this->partCategoryCode,'notNumber')},
+			{$this->parseValue($this->wastage)},
+			{$this->parseValue($this->bomLevels)})
+SQL;
+        $this->resetLastSqlError();
+        $result = $this->query($sql2);
+        $this->lastSql = $sql2;
+        if (!$result) {
+            $this->lastSqlError = $this->sqlstate . " - ". $this->error;
+        } else {
+            $this->allowUpdate = true;
+            if ($this->isPkAutoIncrement) {
+                $this->partCode = $this->insert_id;
+            }
+        }
+        return $result;
+    }
+
+    /**
      * Facility for updating a row of good_movement previously loaded.
      *
      * All class attribute values defined for mapping all table fields are automatically used during updating.
