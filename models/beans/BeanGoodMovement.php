@@ -360,15 +360,14 @@ class BeanGoodMovement extends MySqlRecord implements Bean
      * @return mixed MySQL insert result
      * @category DML
      */
-    public function insert()
+    /* public function insert()
     {
         if ($this->isPkAutoIncrement) {
             $this->goodMovementId = "";
         }
         // $constants = get_defined_constants();
         $sql = <<< SQL
-            INSERT INTO good_movement
-            (good_movement_id,movement_date,part_code,store_code,quantity)
+            SELECT * FROM `stock_store` WHERE 
             VALUES({$this->parseValue($this->goodMovementId)},
 			{$this->parseValue($this->movementDate,'notNumber')},
 			{$this->parseValue($this->partCode,'notNumber')},
@@ -388,7 +387,7 @@ SQL;
         }
         return $result;
     }
-
+*/
     /**
      * Updates a specific row from the table good_movement with the values of the current object.
      *
@@ -425,6 +424,106 @@ SQL;
         } else {
             return false;
         }
+    }
+
+    /**
+     * Move the current object into a new table row of good_movement
+     *
+     * All class attributes values defined for mapping all table fields are automatically used during inserting
+     * @return mixed MySQL insert result
+     * @category DML
+     */
+    public function insert()
+    {
+        if ($this->isPkAutoIncrement) {
+            $this->goodMovementId = "";
+        }
+        // $constants = get_defined_constants();
+
+        // Recupero i valori inseriti nel form
+        $goodMovementId = $_POST['good_movement_id'];
+        $movementDate = $_POST['movement_date'];
+        $part_code = $_POST['part_code'];
+        $storeNameIn = $_POST['store_name_in'];
+        $storeNameOut = $_POST['store_name_out'];
+        $quantity_to_move = $_POST['quantity'];
+
+
+        // ricava store_code da store_name
+        $sql2 =  "SELECT * FROM `stock_store` WHERE $storeNameOut";
+        $this->resetLastSqlError();
+        $result =  $this->query($sql2);
+        $this->resultSet=$result;
+        $this->lastSql = $sql2;
+        if ($result){
+            $rowObject = $result->fetch_object();
+            $store_code_out = (integer)$rowObject->store_code;
+            //@$this->partCode = $this->replaceAposBackSlash($rowObject->part_code);
+            //@$this->quantity = (float)$rowObject->quantity;
+            $this->allowUpdate = true;
+        } else {
+            $this->lastSqlError = $this->sqlstate . " - " . $this->error;
+        }
+
+
+        // ricava tutti gli stock relativi a quella parte in quel magazzino
+        $sql3 =  "SELECT * FROM stock WHERE store_code={$store_code_out} AND part_code={$part_code}";
+        $this->resetLastSqlError();
+        $result =  $this->query($sql3);
+        $this->resultSet=$result;
+        $this->lastSql = $sql3;
+        if ($result){
+            $rowObject = $result->fetch_object();
+            //@$this->storeCode = (integer)$rowObject->store_code;
+            //@$this->partCode = $this->replaceAposBackSlash($rowObject->part_code);
+            $quantity_initial = (float)$rowObject->quantity;
+            $this->allowUpdate = true;
+        } else {
+            $this->lastSqlError = $this->sqlstate . " - " . $this->error;
+        }
+
+        // controlla sulla quantità e fa un update sullo stock
+        $quantity_final = $quantity_initial - $quantity_to_move;
+        if(($quantity_final >= 0) && ($this->allowUpdate)) {
+            $sql4 = <<< SQL
+            UPDATE
+                stock
+                SET 
+				quantity={$quantity_final}
+            WHERE
+                store_code={$this->parseValue($storeNameIn,'int')} AND part_code={$this->parseValue($part_code,'string')}
+SQL;
+            $this->resetLastSqlError();
+            $result = $this->query($sql4);
+            if (!$result) {
+                $this->lastSqlError = $this->sqlstate . " - ". $this->error;
+            }   else {
+                $this->select($storeNameIn,$part_code);
+                $this->lastSql = $sql4;
+               //return $result;
+            }
+        } else {
+            $this->lastSqlError = $this->sqlstate . " - " . $this->error;
+        }
+
+        //Inserisce la movimentazione
+        $sql5 = <<< SQL
+            INSERT INTO good_movement
+            (good_movement_id,movement_date,part_code,store_code,quantity)
+            VALUES({$goodMovementId},
+			{$movementDate},
+			{$part_code},
+			{$storeNameIn},
+			{$storeNameOut},
+			{$quantity_final})
+SQL;
+
+        $this->resetLastSqlError();
+        $result = $this->query($sql5);
+        if (!$result) {
+            $this->lastSqlError = $this->sqlstate . " - ". $this->error;
+        }
+        return $result;
     }
 
     /**
