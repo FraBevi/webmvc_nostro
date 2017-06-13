@@ -24,7 +24,7 @@ class MovimentazioneV extends View
     public function __construct($tplName = null)
     {
         if (empty($tplName))
-            $tplName = "/Proj/movec";
+            $tplName = "/Proj/movimentazione";
         parent::__construct($tplName);
     }
 
