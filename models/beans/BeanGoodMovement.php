@@ -29,7 +29,7 @@
  * @copyright (c) 2016 Rosario Carvello <rosario.carvello@gmail.com> - All rights reserved. See License.txt file
  * @license BSD
  * @license https://opensource.org/licenses/BSD-3-Clause This software is distributed under BSD Public License.
-*/
+ */
 namespace models\beans;
 use framework\MySqlRecord;
 use framework\Bean;
@@ -66,9 +66,9 @@ class BeanGoodMovement extends MySqlRecord implements Bean
      * Field information:
      *  - Data type: varchar(45)
      *  - Null : YES
-     *  - DB MainPage:
-     *  - Default: 
-     *  - Extra:  
+     *  - DB Index:
+     *  - Default:
+     *  - Extra:
      * @var string $movementDate
      */
     private $movementDate;
@@ -80,9 +80,9 @@ class BeanGoodMovement extends MySqlRecord implements Bean
      * Field information:
      *  - Data type: varchar(40)
      *  - Null : NO
-     *  - DB MainPage: MUL
-     *  - Default: 
-     *  - Extra:  
+     *  - DB Index: MUL
+     *  - Default:
+     *  - Extra:
      * @var string $partCode
      */
     private $partCode;
@@ -94,12 +94,14 @@ class BeanGoodMovement extends MySqlRecord implements Bean
      * Field information:
      *  - Data type: int(11)
      *  - Null : NO
-     *  - DB MainPage: MUL
-     *  - Default: 
-     *  - Extra:  
+     *  - DB Index: MUL
+     *  - Default:
+     *  - Extra:
      * @var int $storeCode
      */
     private $storeCode;
+
+    private $storeCodeOut;
 
     /**
      * Class attribute for mapping table field quantity
@@ -108,9 +110,9 @@ class BeanGoodMovement extends MySqlRecord implements Bean
      * Field information:
      *  - Data type: decimal(11,2)
      *  - Null : YES
-     *  - DB MainPage:
-     *  - Default: 
-     *  - Extra:  
+     *  - DB Index:
+     *  - Default:
+     *  - Extra:
      * @var float $quantity
      */
     private $quantity;
@@ -170,7 +172,44 @@ class BeanGoodMovement extends MySqlRecord implements Bean
      */
     public function setStoreCode($storeCode)
     {
-        $this->storeCode = (int)$storeCode;
+        // ricava store_code da store_name
+        $sql2 = "SELECT * FROM `stock_store` WHERE $storeCode";
+        $this->resetLastSqlError();
+        $result = $this->query($sql2);
+        $this->resultSet = $result;
+        $this->lastSql = $sql2;
+        if ($result) {
+            $rowObject = $result->fetch_object();
+            $this->$storeCode = (integer)$rowObject->store_code;
+            $this->allowUpdate = true;
+        } else {
+            $this->lastSqlError = $this->sqlstate . " - " . $this->error;
+        }
+    }
+
+    /**
+     * setStoreCode Sets the class attribute storeCode with a given value
+     *
+     * The attribute storeCode maps the field store_code defined as int(11).<br>
+     * Comment for field store_code: Not specified.<br>
+     * @param int $storeCode
+     * @category Modifier
+     */
+    public function setStoreCodeOut($storeCodeOut)
+    {
+        // ricava store_code da store_name
+        $sql2 = "SELECT * FROM `stock_store` WHERE $storeCodeOut";
+        $this->resetLastSqlError();
+        $result = $this->query($sql2);
+        $this->resultSet = $result;
+        $this->lastSql = $sql2;
+        if ($result) {
+            $rowObject = $result->fetch_object();
+            $this->$storeCodeOut = (integer)$rowObject->store_code;
+            $this->allowUpdate = true;
+        } else {
+            $this->lastSqlError = $this->sqlstate . " - " . $this->error;
+        }
     }
 
     /**
@@ -262,10 +301,10 @@ class BeanGoodMovement extends MySqlRecord implements Bean
     }
 
     /**
-    * Gets the name of the managed table
-    * @return string
-    * @category Accessor
-    */
+     * Gets the name of the managed table
+     * @return string
+     * @category Accessor
+     */
     public function getTableName()
     {
         return "good_movement";
@@ -277,7 +316,7 @@ class BeanGoodMovement extends MySqlRecord implements Bean
      * It creates and initializes an object in two way:
      *  - with null (not fetched) data if none $goodMovementId is given.
      *  - with a fetched data row from the table good_movement having good_movement_id=$goodMovementId
-     * @param int $goodMovementId. If omitted an empty (not fetched) instance is created.
+     * @param int $goodMovementId . If omitted an empty (not fetched) instance is created.
      * @return BeanGoodMovement Object
      */
     public function __construct($goodMovementId = null)
@@ -302,7 +341,7 @@ class BeanGoodMovement extends MySqlRecord implements Bean
      */
     public function close()
     {
-        unset($this);
+        //unset($this);
     }
 
     /**
@@ -316,12 +355,12 @@ class BeanGoodMovement extends MySqlRecord implements Bean
      */
     public function select($goodMovementId)
     {
-        $sql =  "SELECT * FROM good_movement WHERE good_movement_id={$this->parseValue($goodMovementId,'int')}";
+        $sql = "SELECT * FROM good_movement WHERE good_movement_id={$this->parseValue($goodMovementId,'int')}";
         $this->resetLastSqlError();
-        $result =  $this->query($sql);
-        $this->resultSet=$result;
+        $result = $this->query($sql);
+        $this->resultSet = $result;
         $this->lastSql = $sql;
-        if ($result){
+        if ($result) {
             $rowObject = $result->fetch_object();
             @$this->goodMovementId = (integer)$rowObject->good_movement_id;
             @$this->movementDate = $this->replaceAposBackSlash($rowObject->movement_date);
@@ -330,7 +369,7 @@ class BeanGoodMovement extends MySqlRecord implements Bean
             @$this->quantity = (float)$rowObject->quantity;
             $this->allowUpdate = true;
         } else {
-            $this->lastSqlError = $this->sqlstate . " - ". $this->error;
+            $this->lastSqlError = $this->sqlstate . " - " . $this->error;
         }
         return $this->affected_rows;
     }
@@ -348,7 +387,7 @@ class BeanGoodMovement extends MySqlRecord implements Bean
         $result = $this->query($sql);
         $this->lastSql = $sql;
         if (!$result) {
-            $this->lastSqlError = $this->sqlstate . " - ". $this->error;
+            $this->lastSqlError = $this->sqlstate . " - " . $this->error;
         }
         return $this->affected_rows;
     }
@@ -360,14 +399,15 @@ class BeanGoodMovement extends MySqlRecord implements Bean
      * @return mixed MySQL insert result
      * @category DML
      */
-    /* public function insert()
-    {
+    public function insert()
+    {/*
         if ($this->isPkAutoIncrement) {
             $this->goodMovementId = "";
         }
         // $constants = get_defined_constants();
         $sql = <<< SQL
-            SELECT * FROM `stock_store` WHERE 
+            INSERT INTO good_movement
+            (good_movement_id,movement_date,part_code,store_code,quantity)
             VALUES({$this->parseValue($this->goodMovementId)},
 			{$this->parseValue($this->movementDate,'notNumber')},
 			{$this->parseValue($this->partCode,'notNumber')},
@@ -386,9 +426,69 @@ SQL;
             }
         }
         return $result;
+    }*/
+    // ricava tutti gli stock relativi a quella parte in quel magazzino
+        $sql3 =  "SELECT * FROM stock WHERE store_code={$this->storeCodeOut} AND part_code={$this->partCode}";
+        $this->resetLastSqlError();
+        $quantity_initial = 0;
+        $result = $this->query($sql3);
+        $this->resultSet = $result;
+        $this->lastSql = $sql3;
+        if ($result) {
+            $rowObject = $result->fetch_object();
+            //@$this->storeCode = (integer)$rowObject->store_code;
+            //@$this->partCode = $this->replaceAposBackSlash($rowObject->part_code);
+            $quantity_initial = (float)$rowObject->quantity;
+            $this->allowUpdate = true;
+        } else {
+            $this->lastSqlError = $this->sqlstate . " - " . $this->error;
+        }
+
+    // controlla sulla quantità e fa un update sullo stock
+    $quantity_final = $quantity_initial - $this->quantity;
+    if (($quantity_final >= 0) && ($this->allowUpdate)) {
+        $sql4 = <<< SQL
+                UPDATE
+                    stock
+                    SET 
+                    quantity={$quantity_final}
+                WHERE
+                    store_code={$this->store_code_out} AND part_code={$this->part_code}
+SQL;
+        $this->resetLastSqlError();
+        $result = $this->query($sql4);
+        if (!$result) {
+            $this->lastSqlError = $this->sqlstate . " - " . $this->error;
+        } else {
+            $this->select($this->storeCode, $this->part_code);
+            $this->lastSql = $sql4;
+            //return $result;
+        }
+    } else {
+        $this->lastSqlError = $this->sqlstate . " - " . $this->error;
     }
-*/
-    /**
+
+    //Inserisce la movimentazione
+    $sql5 = <<< SQL
+                INSERT INTO good_movement
+                (good_movement_id,movement_date,part_code,store_code,quantity)
+                VALUES({$this->goodMovementId},
+                {$this->movementDate},
+                {$this->partCode},
+                {$this->storeCode},
+                {$this->storeCodeOut},
+                {$quantity_final})
+SQL;
+
+    $this->resetLastSqlError();
+    $result = $this->query($sql5);
+    if (!$result) {
+        $this->lastSqlError = $this->sqlstate . " - " . $this->error;
+    }
+    return $result;
+}
+
+/**
      * Updates a specific row from the table good_movement with the values of the current object.
      *
      * All class attribute values defined for mapping all table fields are automatically used during updating of selected row.<br>
@@ -424,106 +524,6 @@ SQL;
         } else {
             return false;
         }
-    }
-
-    /**
-     * Move the current object into a new table row of good_movement
-     *
-     * All class attributes values defined for mapping all table fields are automatically used during inserting
-     * @return mixed MySQL insert result
-     * @category DML
-     */
-    public function insert()
-    {
-        if ($this->isPkAutoIncrement) {
-            $this->goodMovementId = "";
-        }
-        // $constants = get_defined_constants();
-
-        // Recupero i valori inseriti nel form
-        $goodMovementId = $_POST['good_movement_id'];
-        $movementDate = $_POST['movement_date'];
-        $part_code = $_POST['part_code'];
-        $storeNameIn = $_POST['store_name_in'];
-        $storeNameOut = $_POST['store_name_out'];
-        $quantity_to_move = $_POST['quantity'];
-
-
-        // ricava store_code da store_name
-        $sql2 =  "SELECT * FROM `stock_store` WHERE $storeNameOut";
-        $this->resetLastSqlError();
-        $result =  $this->query($sql2);
-        $this->resultSet=$result;
-        $this->lastSql = $sql2;
-        if ($result){
-            $rowObject = $result->fetch_object();
-            $store_code_out = (integer)$rowObject->store_code;
-            //@$this->partCode = $this->replaceAposBackSlash($rowObject->part_code);
-            //@$this->quantity = (float)$rowObject->quantity;
-            $this->allowUpdate = true;
-        } else {
-            $this->lastSqlError = $this->sqlstate . " - " . $this->error;
-        }
-
-
-        // ricava tutti gli stock relativi a quella parte in quel magazzino
-        $sql3 =  "SELECT * FROM stock WHERE store_code={$store_code_out} AND part_code={$part_code}";
-        $this->resetLastSqlError();
-        $result =  $this->query($sql3);
-        $this->resultSet=$result;
-        $this->lastSql = $sql3;
-        if ($result){
-            $rowObject = $result->fetch_object();
-            //@$this->storeCode = (integer)$rowObject->store_code;
-            //@$this->partCode = $this->replaceAposBackSlash($rowObject->part_code);
-            $quantity_initial = (float)$rowObject->quantity;
-            $this->allowUpdate = true;
-        } else {
-            $this->lastSqlError = $this->sqlstate . " - " . $this->error;
-        }
-
-        // controlla sulla quantità e fa un update sullo stock
-        $quantity_final = $quantity_initial - $quantity_to_move;
-        if(($quantity_final >= 0) && ($this->allowUpdate)) {
-            $sql4 = <<< SQL
-            UPDATE
-                stock
-                SET 
-				quantity={$quantity_final}
-            WHERE
-                store_code={$this->parseValue($storeNameIn,'int')} AND part_code={$this->parseValue($part_code,'string')}
-SQL;
-            $this->resetLastSqlError();
-            $result = $this->query($sql4);
-            if (!$result) {
-                $this->lastSqlError = $this->sqlstate . " - ". $this->error;
-            }   else {
-                $this->select($storeNameIn,$part_code);
-                $this->lastSql = $sql4;
-               //return $result;
-            }
-        } else {
-            $this->lastSqlError = $this->sqlstate . " - " . $this->error;
-        }
-
-        //Inserisce la movimentazione
-        $sql5 = <<< SQL
-            INSERT INTO good_movement
-            (good_movement_id,movement_date,part_code,store_code,quantity)
-            VALUES({$goodMovementId},
-			{$movementDate},
-			{$part_code},
-			{$storeNameIn},
-			{$storeNameOut},
-			{$quantity_final})
-SQL;
-
-        $this->resetLastSqlError();
-        $result = $this->query($sql5);
-        if (!$result) {
-            $this->lastSqlError = $this->sqlstate . " - ". $this->error;
-        }
-        return $result;
     }
 
     /**

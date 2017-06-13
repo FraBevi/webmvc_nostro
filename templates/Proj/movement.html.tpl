@@ -21,7 +21,7 @@
     <h1>{RES:title}</h1>
 
     {Searcher:ricerca}
-    <a href="part_record/add/new" class="btn btn-info"><span class="glyphicon glyphicon-plus-sign"></span> {RES:add_part}</a>
+    <a href="movimentazioneC/add/new" class="btn btn-info"><span class="glyphicon glyphicon-plus-sign"></span> {RES:add_part}</a>
     <div class="table table-responsive">
         <table class="table table-bordered">
             <thead>
