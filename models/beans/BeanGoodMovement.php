@@ -410,11 +410,10 @@ class BeanGoodMovement extends MySqlRecord implements Bean
 
         // prendere i codici degli store dai nomi!
         // ricava store_code da store_name del magazzino da cui prelevo
-        $sss_out = $this->getMovementDate();
+        $sss_out = $this->getStoreCodeOut();
         $sss_in = $this->getStoreCode();
-        $sql2 = <<< SQL
-                SELECT * FROM stock_store WHERE stock_store.name = $sss_out
-SQL;
+        $sql2 = "SELECT * FROM stock_store WHERE stock_store.name = '". $sss_out. "'";
+
         $this->resetLastSqlError();
         $result = $this->query($sql2);
         $this->resultSet = $result;
@@ -431,9 +430,8 @@ SQL;
         }
 
         // ricava store_code da store_name del magazzino in cui deposito
-        $sql3 =  <<< SQL
-                SELECT * FROM stock_store WHERE stock_store.name = $sss_in
-SQL;
+        $sql3 = "SELECT * FROM stock_store WHERE stock_store.name = '". $sss_in. "'";
+
         $this->resetLastSqlError();
         $result = $this->query($sql3);
         $this->resultSet = $result;
