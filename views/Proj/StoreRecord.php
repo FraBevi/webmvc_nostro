@@ -48,6 +48,4 @@ class StoreRecord extends View
         $this->setVar("store_type_code",$bean->getStoreTypeCode());
     }
 
-
-
 }
