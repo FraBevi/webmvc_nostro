@@ -408,7 +408,7 @@ class BeanGoodMovement extends MySqlRecord implements Bean
         }
         // $constants = get_defined_constants();
 
-        //prendere i codici degli store dai nomi!
+        // prendere i codici degli store dai nomi!
         // ricava store_code da store_name
         $sql2 = "SELECT * FROM `stock_store` WHERE name={$this->parseValue($this->storeCodeOut)}";
         $this->resetLastSqlError();
