@@ -480,7 +480,7 @@ SQL;
     }
 
     /**
-     * Updates a specific row from the table good_movement with the values of the current object.
+     * Updates a specific row from the table good_movement with the values of the current object .
      *
      * All class attribute values defined for mapping all table fields are automatically used during updating of selected row.<br>
      * Null values are used for all attributes not previously setted.

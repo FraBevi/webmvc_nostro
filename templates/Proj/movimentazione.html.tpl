@@ -107,7 +107,7 @@
                         <input type="text" class="form-control" name="store_name_out" value="{store_name_out}" placeholder="Magazzino prelievo" required>
 
                         <!--  <select class="form-control" name="store_name_out" value= "{store_name_out}" id="store_type_code" required>
-                            <!--    <option value="">{RES:name_type}</option>
+                            <!--     <option value="">{RES:name_type}</option>
                             <!-- BEGIN part_type_code_list -->
                         <!-- <option value="{store}">{name}</option>
                             <!-- END part_type_code_list -->
