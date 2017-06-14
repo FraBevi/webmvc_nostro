@@ -184,7 +184,7 @@ class BeanGoodMovement extends MySqlRecord implements Bean
      */
     public function setStoreCode($storeCode)
     {
-        $this->storeCode = (int)$storeCode;
+        $this->storeCode = (string)$storeCode;
     }
 
     /**
@@ -197,7 +197,7 @@ class BeanGoodMovement extends MySqlRecord implements Bean
      */
     public function setStoreCodeOut($storeCode)
     {
-        $this->storeCodeOut = (int)$storeCode;
+        $this->storeCodeOut = (string)$storeCode;
     }
 
     /**
@@ -408,39 +408,43 @@ class BeanGoodMovement extends MySqlRecord implements Bean
         }
         // $constants = get_defined_constants();
 
-        //prendere i codici degli store dai nomi!
-        // ricava store_code da store_name
-        $sql2 = "SELECT * FROM `stock_store` WHERE name={$this->parseValue($this->storeCodeOut)}";
+        // prendere i codici degli store dai nomi!
+        // ricava store_code da store_name del magazzino da cui prelevo
+        $sss_out = $this->getMovementDate();
+        $sss_in = $this->getStoreCode();
+        $sql2 = <<< SQL
+                SELECT * FROM stock_store WHERE stock_store.name = $sss_out
+SQL;
         $this->resetLastSqlError();
         $result = $this->query($sql2);
         $this->resultSet = $result;
         $this->lastSql = $sql2;
+        $quantity_initial = 0;
         if ($result) {
             $rowObject = $result->fetch_object();
-            $storeCode_prelievo = (int)$rowObject->store_code;
+            $storeCode_prelievo = (integer)$rowObject->store_code;
             $part_code_prelievo = $rowObject->part_code;
-            $quantity_prelievo = $rowObject->quantity;
+            $quantity_initial = $rowObject->quantity;
             $this->allowUpdate = true;
         } else {
             $this->lastSqlError = $this->sqlstate . " - " . $this->error;
         }
-        // ricava store_code da store_name
-        $sql3 = "SELECT * FROM `stock_store` WHERE name={$this->parseValue($this->storeCodeOut)}";
+
+        // ricava store_code da store_name del magazzino in cui deposito
+        $sql3 =  <<< SQL
+                SELECT * FROM stock_store WHERE stock_store.name = $sss_in
+SQL;
         $this->resetLastSqlError();
         $result = $this->query($sql3);
         $this->resultSet = $result;
         $this->lastSql = $sql3;
         if ($result) {
             $rowObject = $result->fetch_object();
-            $storeCode_deposito = (int)$rowObject->store_code;
-            $part_code_prelievo = $rowObject->part_code;
-            $quantity_prelievo = $rowObject->quantity;
+            $storeCode_deposito = (integer)$rowObject->store_code;
             $this->allowUpdate = true;
         } else {
             $this->lastSqlError = $this->sqlstate . " - " . $this->error;
         }
-
-
 
         $sql = <<< SQL
             INSERT INTO good_movement
@@ -463,6 +467,17 @@ SQL;
                 $this->goodMovementId = $this->insert_id;
             }
         }
+
+        $quantity_to_move = $this->getQuantity();
+        $quantity_final = $quantity_initial - $quantity_to_move;
+        if($quantity_final > 0){
+            // update il vecchio stock e insert il nuovo stock
+        } else if($quantity_final = 0){
+            // delete il vecchio stock e insert il nuovo stock
+        } else {
+            // non si può fare nulla errore!!!
+        }
+
         return $result;
     }
 

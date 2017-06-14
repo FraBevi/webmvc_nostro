@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+
+
+
     <title>{RES:ProjectName}</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,7 +15,8 @@
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
+
+    <!--  Include all compiled plugins (below), or include individual files as needed -->
     <script src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.4/js/bootstrap.min.js"></script>
 
 </head>
@@ -22,9 +26,9 @@
 <div class="container">
     <h1>{RES:Movimentazione}</h1>
     <form name="part_record_form" id="part_record_form" method="post" class="form-horizontal">
-    
+
         <div class="panel panel-primary">
-            
+
             <div class="panel-heading">
                 <h1 class="panel-title">{FormTitle}</h1>
             </div>
@@ -38,35 +42,39 @@
                         <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span>
                             <span class="sr-only">Close</span></button>{RES:errormsg}
                         <br/>
-                        <span id="campione_record_inccampioneErrorBlock">{Error}</span> 
+                        <span id="campione_record_inccampioneErrorBlock">{Error}</span>
                     </div>
                     <div class="col-sm-1"></div>
                 </div>
                 <!-- END ValidationErrors -->
-                
+
                 <div class="form-group col-sm-12">
                     <div class="col-sm-4 control-label">
                         <label class="text-danger">{RES:ID_movement}</label>
                     </div>
-     
+
                     <div class="col-sm-6 input-group">
                         <div class="input-group-addon">
-                            <i class="fa fa-th" aria-hidden="true"></i> 
+                            <i class="fa fa-th" aria-hidden="true"></i>
                         </div>
                         <input type="text" class="form-control" name="good_movement_id" value="{good_movement_id}" placeholder="ID" required {readonly}>
                     </div>
                 </div>
-                
+
                 <div class="form-group col-sm-12">
                     <div class="col-sm-4 control-label">
                         <label class="text-danger">{RES:data}</label>
                     </div>
-     
+
                     <div class="col-sm-6 input-group">
                         <div class="input-group-addon">
                             <i class="fa fa-file-text-o" aria-hidden="true"></i>
                         </div>
-                        <input type="text" class="form-control" name="movement_date" value="{movement_date}" placeholder= "yyyy-mm-dd" required>
+
+
+                        <div class="form-row show-inputbtns">
+                            <input type="date" name="movement_date" value="{movement_date}"/>
+                        </div>
 
 
                     </div>
@@ -82,7 +90,7 @@
                         <div class="input-group-addon">
                             <i class="fa fa-file-text-o" aria-hidden="true"></i>
                         </div>
-                        <input type="text" class="form-control" name="part_code" value="" placeholder="part code" required>
+                        <input type="text" class="form-control" name="part_code" value="{part_code}" placeholder="part code" required>
                     </div>
                 </div>
 
@@ -95,12 +103,15 @@
                         <div class="input-group-addon">
                             <i class="fa fa-sitemap" aria-hidden="true"></i>
                         </div>
-                        <select class="form-control" name="store_name_out" value= "{store_name_out}" id="store_type_code" required>
-                            <option value="">{RES:name_type}</option>
+
+                        <input type="text" class="form-control" name="store_name_out" value="{store_name_out}" placeholder="Magazzino prelievo" required>
+
+                        <!--  <select class="form-control" name="store_name_out" value= "{store_name_out}" id="store_type_code" required>
+                            <!--    <option value="">{RES:name_type}</option>
                             <!-- BEGIN part_type_code_list -->
-                            <option value="{store}">{name}</option>
+                        <!-- <option value="{store}">{name}</option>
                             <!-- END part_type_code_list -->
-                        </select>
+                        <!-- </select> -->
                     </div>
                 </div>
 
@@ -114,12 +125,14 @@
                         <div class="input-group-addon">
                             <i class="fa fa-sitemap" aria-hidden="true"></i>
                         </div>
-                        <select class="form-control" name="store_name_in" value= "{store_name_in}" id="store_type_code" required>
-                            <option value="">{RES:name_type}</option>
+                        <input type="text" class="form-control" name="store_name_in" value="{store_name_in}" placeholder="Magazzino deposito" required>
+
+                        <!--  <select class="form-control" name="store_name_in" value= "{store_name_in}" id="store_type_code" required>
+                            <!--    <option value="">{RES:name_type}</option>
                             <!-- BEGIN part_type_code_list -->
-                            <option value="{store}">{name}</option>
+                        <!--  <option value="{store}">{name}</option>
                             <!-- END part_type_code_list -->
-                        </select>
+                        <!--  </select> -->
                     </div>
                 </div>
 
@@ -137,18 +150,18 @@
                     </div>
                 </div>
             </div>
-     
+
             <div class="panel-footer">
                 <div class="form-group text-center">
-                  <label class="col-sm-1 control-label"></label> 
-                  <div class="col-sm-10">
-                   {Record:PartManagerRecord}
-                  </div>
+                    <label class="col-sm-1 control-label"></label>
+                    <div class="col-sm-10">
+                        {Record:PartManagerRecord}
+                    </div>
                 </div>
             </div>
 
         </div>
-         <a href="http://localhost/webmvc_nostro/Proj/move_c" type="btn btn-primary">Go back</a>
+        <a href="http://localhost/webmvc_nostro/Proj/move_c" type="btn btn-primary">Go back</a>
 
     </form>
 
@@ -157,9 +170,9 @@
     // Sets all form selects option value
 
     /** Method 1
-    var element = document.getElementById('part_type_code');
-    element.value = '{part_type_code}';
-    */
+     var element = document.getElementById('part_type_code');
+     element.value = '{part_type_code}';
+     */
 
     // Method 2 - Better (do not change values when reset button is pressed)
     // $("#source option[value={source}]").attr('selected','selected');
