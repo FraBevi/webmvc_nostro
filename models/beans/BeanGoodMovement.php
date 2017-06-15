@@ -418,12 +418,9 @@ class BeanGoodMovement extends MySqlRecord implements Bean
         $result = $this->query($sql2);
         $this->resultSet = $result;
         $this->lastSql = $sql2;
-        $quantity_initial = 0;
         if ($result) {
             $rowObject = $result->fetch_object();
             $storeCode_prelievo = (integer)$rowObject->store_code;
-            $part_code_prelievo = $rowObject->part_code;
-            $quantity_initial = $rowObject->quantity;
             $this->allowUpdate = true;
         } else {
             $this->lastSqlError = $this->sqlstate . " - " . $this->error;
@@ -466,10 +463,39 @@ SQL;
             }
         }
 
+        //devo ricavare gli stock relativi al deposito e al prelievo
+        //Select su stock vecchio
+        $sql =  "SELECT * FROM stock WHERE store_code={$storeCode_prelievo} AND part_code={$this->parseValue($this->partCode,'notNumber')}";
+        $this->resetLastSqlError();
+        $result =  $this->query($sql);
+        $this->resultSet=$result;
+        $this->lastSql = $sql;
+        if ($result){
+            $rowObject = $result->fetch_object();
+            $quantity_initial = (float)$rowObject->quantity;
+            $this->allowUpdate = true;
+        } else {
+            $this->lastSqlError = $this->sqlstate . " - ". $this->error;
+        }
+
+        //
         $quantity_to_move = $this->getQuantity();
         $quantity_final = $quantity_initial - $quantity_to_move;
         if($quantity_final > 0){
             // update il vecchio stock e insert il nuovo stock
+                $sql = "UPDATE stock
+                SET 
+				stock.quantity={$quantity_final}
+            WHERE
+                stock.store_code={$storeCode_prelievo} AND stock.part_code={$this->parseValue($this->partCode,'notNumber')}";
+            $this->resetLastSqlError();
+            $result = $this->query($sql);
+            if (!$result) {
+                $this->lastSqlError = $this->sqlstate . " - ". $this->error;
+            }   else {
+                $this->lastSql = $sql;
+            }
+            ////
         } else if($quantity_final = 0){
             // delete il vecchio stock e insert il nuovo stock
         } else {
