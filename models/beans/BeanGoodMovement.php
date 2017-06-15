@@ -464,21 +464,29 @@ SQL;
         }
 
         //devo ricavare gli stock relativi al deposito e al prelievo
-        //Select su stock vecchio
+        //Select su stock vecchio: controllo se esiste, se si mi salvo la quantità iniziale dello stock
         $sql =  "SELECT * FROM stock WHERE store_code={$storeCode_prelievo} AND part_code={$this->parseValue($this->partCode,'notNumber')}";
         $this->resetLastSqlError();
         $result =  $this->query($sql);
         $this->resultSet=$result;
         $this->lastSql = $sql;
-        if ($result){
+        if ($result->num_rows > 0){
             $rowObject = $result->fetch_object();
             $quantity_initial = (float)$rowObject->quantity;
             $this->allowUpdate = true;
+            $exists_old = true;
         } else {
+            $exists_old = false;
             $this->lastSqlError = $this->sqlstate . " - ". $this->error;
         }
 
-        //Select su stock nuovo
+        //se il vecchio stock non esiste non posso spostare nulla!
+        if(!$exists_old){
+            echo "Errore: lo stock da cui prelevare non esiste!";
+            return;
+        }
+
+        //Select su stock nuovo: controllo se esiste, se si mi salvo la quantità iniziale dello stock
         $sql =  "SELECT * FROM stock WHERE store_code={$storeCode_deposito} AND part_code={$this->parseValue($this->partCode,'notNumber')}";
         $this->resetLastSqlError();
         $result =  $this->query($sql);
