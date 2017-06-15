@@ -1,5 +1,6 @@
 #Comment: Loads translations defined
 #Load:locales/it-it/controllers/Proj/Movimentazione.txt
+#Load:locales/it-it/controllers/Proj/PartInStoreC.txt
 
 Movimentazione=Aggiungi Movimentazione
 ID_movement=ID Movimentazione
