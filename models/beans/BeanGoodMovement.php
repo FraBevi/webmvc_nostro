@@ -418,12 +418,9 @@ class BeanGoodMovement extends MySqlRecord implements Bean
         $result = $this->query($sql2);
         $this->resultSet = $result;
         $this->lastSql = $sql2;
-        $quantity_initial = 0;
         if ($result) {
             $rowObject = $result->fetch_object();
             $storeCode_prelievo = (integer)$rowObject->store_code;
-            $part_code_prelievo = $rowObject->part_code;
-            $quantity_initial = $rowObject->quantity;
             $this->allowUpdate = true;
         } else {
             $this->lastSqlError = $this->sqlstate . " - " . $this->error;
@@ -466,14 +463,150 @@ SQL;
             }
         }
 
+        //devo ricavare gli stock relativi al deposito e al prelievo
+        //Select su stock vecchio: controllo se esiste, se si mi salvo la quantità iniziale dello stock
+        $sql =  "SELECT * FROM stock WHERE store_code={$storeCode_prelievo} AND part_code={$this->parseValue($this->partCode,'notNumber')}";
+        $this->resetLastSqlError();
+        $result =  $this->query($sql);
+        $this->resultSet=$result;
+        $this->lastSql = $sql;
+        if ($result->num_rows > 0){
+            $rowObject = $result->fetch_object();
+            $quantity_initial = (float)$rowObject->quantity;
+            $this->allowUpdate = true;
+            $exists_old = true;
+        } else {
+            $exists_old = false;
+            $this->lastSqlError = $this->sqlstate . " - ". $this->error;
+        }
+
+        //se il vecchio stock non esiste non posso spostare nulla!
+        if(!$exists_old){
+            echo "Errore: lo stock da cui prelevare non esiste!";
+            return;
+        }
+
+        //Select su stock nuovo: controllo se esiste, se si mi salvo la quantità iniziale dello stock
+        $sql =  "SELECT * FROM stock WHERE store_code={$storeCode_deposito} AND part_code={$this->parseValue($this->partCode,'notNumber')}";
+        $this->resetLastSqlError();
+        $result =  $this->query($sql);
+        $this->resultSet=$result;
+        $this->lastSql = $sql;
+        if ($result->num_rows > 0){
+            $rowObject = $result->fetch_object();
+            $quantity_initial_deposito = (float)$rowObject->quantity;
+            $this->allowUpdate = true;
+            $exists = true;
+        } else {
+            $quantity_initial_deposito = (float)0;
+            $exists = false;
+        }
+
+        // controllo sulla quantità da spostare
         $quantity_to_move = $this->getQuantity();
         $quantity_final = $quantity_initial - $quantity_to_move;
+        $quantity_final_deposito = $quantity_initial_deposito + $quantity_to_move;
+
+        // se la quantità finale è > 0 bisogna aggiornare il vecchio stock e inserire/aggiornare il nuovo stock
         if($quantity_final > 0){
-            // update il vecchio stock e insert il nuovo stock
-        } else if($quantity_final = 0){
-            // delete il vecchio stock e insert il nuovo stock
+            // update il vecchio stock
+                $sql = "UPDATE stock
+                SET 
+				stock.quantity={$quantity_final}
+            WHERE
+                stock.store_code={$storeCode_prelievo} AND stock.part_code={$this->parseValue($this->partCode,'notNumber')}";
+            $this->resetLastSqlError();
+            $result = $this->query($sql);
+            if (!$result) {
+                $this->lastSqlError = $this->sqlstate . " - ". $this->error;
+            }   else {
+                $this->lastSql = $sql;
+            }
+
+            //INSERT O UPDATE IL NUOVO STOCK
+            if(!$exists){
+                //insert il nuovo stock
+                $sql = <<< SQL
+        INSERT INTO stock
+        (store_code,part_code,quantity)
+        VALUES({$storeCode_deposito},
+			{$this->parseValue($this->partCode,'notNumber')},
+			{$quantity_to_move})
+SQL;
+                $this->resetLastSqlError();
+                $result = $this->query($sql);
+                $this->lastSql = $sql;
+                if (!$result) {
+                    $this->lastSqlError = $this->sqlstate . " - ". $this->error;
+                } else {
+                    $this->allowUpdate = true;
+                }
+            } else {
+                //update del nuovo stock
+                $sql = "UPDATE stock
+                SET 
+				stock.quantity={$quantity_final_deposito}
+            WHERE
+                stock.store_code={$storeCode_deposito} AND stock.part_code={$this->parseValue($this->partCode,'notNumber')}";
+                $this->resetLastSqlError();
+                $result = $this->query($sql);
+                if (!$result) {
+                    $this->lastSqlError = $this->sqlstate . " - ". $this->error;
+                }   else {
+                    $this->lastSql = $sql;
+                }
+            }
+        // se la quantità finale è < 0 non si può fare nulla: errore!!!
+        } else if($quantity_final < 0){
+            echo "Errore: lo stock da cui prelevare non ha abbastanza risorse!";
+            return;
+
+        // se la quantità finale è = 0 bisogna cancellare il vecchio stock e inserire/aggiornare il nuovo stock
         } else {
-            // non si può fare nulla errore!!!
+            // delete il vecchio stock e insert il nuovo stock
+            //DELETE IL VECCHIO STOCK
+            $sql = "DELETE FROM stock WHERE store_code={$storeCode_prelievo} AND part_code={$this->parseValue($this->partCode,'notNumber')}";
+            $this->resetLastSqlError();
+            $result = $this->query($sql);
+            $this->lastSql = $sql;
+            if (!$result) {
+                $this->lastSqlError = $this->sqlstate . " - ". $this->error;
+            }
+
+            //INSERT O UPDATE IL NUOVO STOCK
+            if(!$exists){
+                //insert il nuovo stock
+                $sql = <<< SQL
+        INSERT INTO stock
+        (store_code,part_code,quantity)
+        VALUES({$storeCode_deposito},
+			{$this->parseValue($this->partCode,'notNumber')},
+			{$quantity_to_move})
+SQL;
+                $this->resetLastSqlError();
+                $result = $this->query($sql);
+                $this->lastSql = $sql;
+                if (!$result) {
+                    $this->lastSqlError = $this->sqlstate . " - ". $this->error;
+                } else {
+                    $this->allowUpdate = true;
+                }
+            } else {
+                //update del nuovo stock
+                $sql = "UPDATE stock
+                SET 
+				stock.quantity={$quantity_final_deposito}
+            WHERE
+                stock.store_code={$storeCode_deposito} AND stock.part_code={$this->parseValue($this->partCode,'notNumber')}";
+                $this->resetLastSqlError();
+                $result = $this->query($sql);
+                if (!$result) {
+                    $this->lastSqlError = $this->sqlstate . " - ". $this->error;
+                }   else {
+                    $this->lastSql = $sql;
+                }
+            }
+
         }
 
         return $result;
