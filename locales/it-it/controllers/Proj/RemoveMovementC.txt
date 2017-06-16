@@ -1,0 +1,13 @@
+#Comment: Loads translations defined
+#Load:locales/it-it/controllers/Proj/Movimentazione.txt
+#Load:locales/it-it/controllers/Proj/PartInStoreC.txt
+
+Movimentazione=Rimuovi Movimentazione
+ID_movement=ID Movimentazione
+errormsg=Si sono verificati errori:
+New_Record=Rimuovi una movimentazione
+Edit_Record=Modifica prodotto/parte. Codice:
+errormsg= Si sono verificati i seguenti errori:
+AddNewPart=Aggiungi una nuova parte
+store_name=Nome magazzinoo
+Record_Add=Rimuovi
