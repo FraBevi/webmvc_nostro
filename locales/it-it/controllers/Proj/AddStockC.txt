@@ -1,0 +1,8 @@
+#Comment: Loads translations defined
+#Load:locales/it-it/controllers/Proj/Movimentazione.txt
+#Load:locales/it-it/controllers/Proj/PartInStoreC.txt
+
+Movimentazione=Aggiungi Stock
+errormsg=Si sono verificati errori:
+New_Record=Aggiungi uno stock
+move_to=Nome magazzino

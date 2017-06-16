@@ -285,7 +285,6 @@ class BeanRemoveStock extends MySqlRecord
      */
     public function insert()
     {
-        // $constants = get_defined_constants();
         $storeName = $this->getStoreCode();
         $partCode = $this->getPartCode();
 
