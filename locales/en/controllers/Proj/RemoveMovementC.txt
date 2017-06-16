@@ -1,0 +1,9 @@
+#Comment: Loads translations defined
+#Load:locales/en/controllers/Proj/Movimentazione.txt
+#Load:locales/en/controllers/Proj/PartInStoreC.txt
+
+Movimentazione=Remove Movement
+ID_movement=Movement ID
+errormsg=Si sono verificati errori:
+New_Record=Remove a movement
+Record_Add=Remove
