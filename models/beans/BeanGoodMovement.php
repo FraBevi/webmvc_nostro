@@ -395,7 +395,7 @@ class BeanGoodMovement extends MySqlRecord implements Bean
     }
 
     /**
-     * Insert the current object into a new table row of good_movement
+     * Insert the current object into a new table row of good_movement and update the stock table
      *
      * All class attributes values defined for mapping all table fields are automatically used during inserting
      * @return mixed MySQL insert result
@@ -408,8 +408,7 @@ class BeanGoodMovement extends MySqlRecord implements Bean
         }
         // $constants = get_defined_constants();
 
-        // prendere i codici degli store dai nomi!
-        // ricava store_code da store_name del magazzino da cui prelevo
+        // ricava store_code dallo store_name del magazzino da cui prelevo la quantità di parte
         $sss_out = $this->getStoreCodeOut();
         $sss_in = $this->getStoreCode();
         $sql2 = "SELECT * FROM stock_store WHERE stock_store.name = '". $sss_out. "'";
@@ -426,9 +425,8 @@ class BeanGoodMovement extends MySqlRecord implements Bean
             $this->lastSqlError = $this->sqlstate . " - " . $this->error;
         }
 
-        // ricava store_code da store_name del magazzino in cui deposito
+        // ricava store_code da store_name del magazzino in cui deposito la quantità di parte
         $sql3 = "SELECT * FROM stock_store WHERE stock_store.name = '". $sss_in. "'";
-
         $this->resetLastSqlError();
         $result = $this->query($sql3);
         $this->resultSet = $result;
@@ -441,6 +439,7 @@ class BeanGoodMovement extends MySqlRecord implements Bean
             $this->lastSqlError = $this->sqlstate . " - " . $this->error;
         }
 
+        //inserisce la movimentazione nella table good_movement
         $sql = <<< SQL
             INSERT INTO good_movement
             (good_movement_id,movement_date,part_code,store_code_out,store_code,quantity)
@@ -463,8 +462,9 @@ SQL;
             }
         }
 
-        //devo ricavare gli stock relativi al deposito e al prelievo
-        //Select su stock vecchio: controllo se esiste, se si mi salvo la quantità iniziale dello stock
+        /* Select su stock vecchio: effettua un controllo per vedere se esiste.
+           Se esiste, salva la quantità iniziale dello stock e setta exists_old = true.
+           Se non esiste, setta exists_old = false. */
         $sql =  "SELECT * FROM stock WHERE store_code={$storeCode_prelievo} AND part_code={$this->parseValue($this->partCode,'notNumber')}";
         $this->resetLastSqlError();
         $result =  $this->query($sql);
@@ -486,7 +486,9 @@ SQL;
             return;
         }
 
-        //Select su stock nuovo: controllo se esiste, se si mi salvo la quantità iniziale dello stock
+        /* Select su stock nuovo: effettua un controllo per vedere se esiste.
+           Se esiste, salva la quantità iniziale dello stock e setta exists = true.
+           Se non esiste, setta exists = false. */
         $sql =  "SELECT * FROM stock WHERE store_code={$storeCode_deposito} AND part_code={$this->parseValue($this->partCode,'notNumber')}";
         $this->resetLastSqlError();
         $result =  $this->query($sql);
@@ -502,7 +504,10 @@ SQL;
             $exists = false;
         }
 
-        // controllo sulla quantità da spostare
+        /* Controllo sulla quantità
+           quantity_to_move identifica la quantità di parte da spostare da uno stock ad un altro.
+           quantity_final identifica la quantità finale di parte nel magazzino da cui prelevo.
+           quantity_final_deposito identifica la quantità finale di parte nel magazzino in cui deposito. */
         $quantity_to_move = $this->getQuantity();
         $quantity_final = $quantity_initial - $quantity_to_move;
         $quantity_final_deposito = $quantity_initial_deposito + $quantity_to_move;

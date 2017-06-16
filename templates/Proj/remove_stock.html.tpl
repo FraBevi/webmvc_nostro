@@ -48,35 +48,8 @@
                 </div>
                 <!-- END ValidationErrors -->
 
-                <div class="form-group col-sm-12">
-                    <div class="col-sm-4 control-label">
-                        <label class="text-danger">{RES:ID_movement}</label>
-                    </div>
 
-                    <div class="col-sm-6 input-group">
-                        <div class="input-group-addon">
-                            <i class="fa fa-th" aria-hidden="true"></i>
-                        </div>
-                        <input type="text" class="form-control" name="good_movement_id" value="{good_movement_id}" placeholder="ID" required {readonly}>
-                    </div>
-                </div>
 
-                <div class="form-group col-sm-12">
-                    <div class="col-sm-4 control-label">
-                        <label class="text-danger">{RES:data}</label>
-                    </div>
-
-                    <div class="col-sm-6 input-group">
-                        <div class="input-group-addon">
-                            <i class="fa fa-file-text-o" aria-hidden="true"></i>
-                        </div>
-
-                        <div class="form-row show-inputbtns">
-                            <input type="date" name="movement_date" value="{movement_date}"/>
-                        </div>
-
-                    </div>
-                </div>
 
 
                 <div class="form-group col-sm-12">
@@ -88,28 +61,7 @@
                         <div class="input-group-addon">
                             <i class="fa fa-file-text-o" aria-hidden="true"></i>
                         </div>
-                        <input type="text" class="form-control" name="part_code" value="{part_code}" placeholder="part code" required>
-                    </div>
-                </div>
-
-
-                <div class="form-group row col-sm-12">
-                    <div class="col-sm-4 control-label">
-                        <label class="text-danger">{RES:get_from}</label>
-                    </div>
-                    <div class="col-sm-6 input-group">
-                        <div class="input-group-addon">
-                            <i class="fa fa-sitemap" aria-hidden="true"></i>
-                        </div>
-
-                        <input type="text" class="form-control" name="store_name_out" value="{store_name_out}" placeholder="Magazzino prelievo" required>
-
-                        <!--  <select class="form-control" name="store_name_out" value= "{store_name_out}" id="store_type_code" required>
-                            <!--     <option value="">{RES:name_type}</option>
-                            <!-- BEGIN part_type_code_list -->
-                        <!-- <option value="{store}">{name}</option>
-                            <!-- END part_type_code_list -->
-                        <!-- </select> -->
+                        <input type="text" class="form-control" name="part_code" value="{part_code}" placeholder="Part code" required>
                     </div>
                 </div>
 
@@ -125,28 +77,11 @@
                         </div>
                         <input type="text" class="form-control" name="store_name_in" value="{store_name_in}" placeholder="Magazzino deposito" required>
 
-                        <!--  <select class="form-control" name="store_name_in" value= "{store_name_in}" id="store_type_code" required>
-                            <!--    <option value="">{RES:name_type}</option>
-                            <!-- BEGIN part_type_code_list -->
-                        <!--  <option value="{store}">{name}</option>
-                            <!-- END part_type_code_list -->
-                        <!--  </select> -->
                     </div>
                 </div>
 
 
-                <div class="form-group col-sm-12">
-                    <div class="col-sm-4 control-label">
-                        <label class="text-danger">{RES:quantity}</label>
-                    </div>
 
-                    <div class="col-sm-6 input-group">
-                        <div class="input-group-addon">
-                            <i class="fa fa-file-text-o" aria-hidden="true"></i>
-                        </div>
-                        <input type="text" class="form-control" name="quantity" value= "" placeholder="quantity to move" required>
-                    </div>
-                </div>
             </div>
 
             <div class="panel-footer">

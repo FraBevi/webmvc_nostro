@@ -7,33 +7,33 @@
  * @package controllers\examples\db
  * @category Application Controller
  * @author  {AuthorName} - {AuthorEmail}
-*/
+ */
 namespace controllers\Proj;
 
 use framework\Controller;
 use framework\Model;
 use framework\View;
 
-use models\beans\BeanGoodMovement;
-use models\Proj\MovimentazioneM as MovimentazioneModel;
-use views\Proj\MovimentazioneV  as MovimentazioneView;
+use models\beans\BeanStock;
+use models\Proj\AddStockM as AddStockModel;
+use views\Proj\AddStockV  as AddStockView;
 
 use controllers\examples\cms\NavigationBar;
 
 use framework\components\Record;
 use framework\BeanAdapter;
 
-class MovimentazioneC extends Controller
+class AddStockC extends Controller
 {
     protected $view;
     protected $model;
 
     /**
-    * Object constructor.
-    *
-    * @param View $view
-    * @param Model $mode
-    */
+     * Object constructor.
+     *
+     * @param View $view
+     * @param Model $mode
+     */
     public function __construct(View $view=null, Model $model=null)
     {
         $this->view = empty($view) ? $this->getView() : $view;
@@ -42,10 +42,10 @@ class MovimentazioneC extends Controller
     }
 
     /**
-    * Autorun method. Put your code here for running it after object creation.
-    * @param mixed|null $parameters Parameters to manage
-    *
-    */
+     * Autorun method. Put your code here for running it after object creation.
+     * @param mixed|null $parameters Parameters to manage
+     *
+     */
     protected function autorun($parameters = null)
     {
         // Use application NavigationBar Controller
@@ -56,7 +56,7 @@ class MovimentazioneC extends Controller
         $this->bindController($navigation);
 
         // Builds select options values
-        $this->model->makePartTypeCodeList($this->view);
+        //$this->model->makePartTypeCodeList($this->view);
 
         // Creates a record component instance
         $record = new Record();
@@ -75,7 +75,7 @@ class MovimentazioneC extends Controller
         $currentRecord = $record->getCurrentRecord();
 
         // Sets history back for button close and delete
-        $historyBack = $record->getControllerHistoryBack("movimentazione_c");
+        $historyBack = $record->getControllerHistoryBack("add_stock_c");
         $record->redirectAfterClose = $historyBack;
         $record->redirectAfterDelete = $historyBack;
         $record->redirectAfterAdd = $historyBack;
@@ -87,7 +87,7 @@ class MovimentazioneC extends Controller
 
         // Creates BeanAclActions, its BeanAdapter and select the
         // current record
-        $bean = new BeanGoodMovement();
+        $bean = new BeanStock();
         $beanAdapter = new BeanAdapter($bean);
         $beanAdapter->select($currentRecord);
 
@@ -139,23 +139,23 @@ class MovimentazioneC extends Controller
     }
 
     /**
-    * Inizialize the View by loading static design of /examples/db/store_record.html.tpl
-    * managed by views\examples\db\StoreRecord class
-    *
-    */
+     * Inizialize the View by loading static design of /examples/db/store_record.html.tpl
+     * managed by views\examples\db\StoreRecord class
+     *
+     */
     public function getView()
     {
-        $view = new MovimentazioneView("/proj/movimentazione");
+        $view = new AddStockView("/proj/add_stock");
         return $view;
     }
 
     /**
-    * Inizialize the Model by loading models\examples\db\StoreRecord class
-    *
-    */
+     * Inizialize the Model by loading models\examples\db\StoreRecord class
+     *
+     */
     public function getModel()
     {
-        $model = new MovimentazioneModel();
+        $model = new AddStockModel();
         return $model;
     }
 }

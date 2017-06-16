@@ -19,4 +19,4 @@ New_Record=Aggiungi nuova movimentazione
 Edit_Record=Modifica prodotto/parte. Codice:
 errormsg= Si sono verificati i seguenti errori:
 AddNewPart=Aggiungi una nuova parte
-store_name=Nome magazzinoo
+store_name=Nome magazzino

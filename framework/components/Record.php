@@ -436,7 +436,6 @@ class Record extends Component{
             if(isset($_GET[$key]))
                 unset($_GET[$key]);
         }
-
         if (!isset($_REQUEST["getState"])) {
             if (isset($_REQUEST[$this->record_add])) {
                 $beanAdapter->insert();
@@ -462,7 +461,6 @@ class Record extends Component{
         }
         if ($beanAdapter->isSqlError() == true)
             throw new BeanActionException($beanAdapter->lastSqlError());
-
     }
 
     /**
@@ -483,7 +481,7 @@ class Record extends Component{
         $parameters = (isset($urlArray[1])&& !empty($urlArray[1])) ?  "/". $urlArray[1] : "";
         $get = (isset($urlArray[2]) && ! empty($urlArray[2]) ) ?  "?" . $urlArray[2] : "";
         $post = (isset($urlArray[3]) && ! empty($urlArray[3]) ) ?  "&" . $urlArray[3] : "";
-        return  SITEURL . "/". $currentSubsystem . $controller . $method  . $parameters . $get . $post;
+        return  SITEURL . "/". $currentSubsystem . $controller ;
     }
 
     /**
