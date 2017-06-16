@@ -29,12 +29,12 @@
  * @copyright (c) 2016 Rosario Carvello <rosario.carvello@gmail.com> - All rights reserved. See License.txt file
  * @license BSD
  * @license https://opensource.org/licenses/BSD-3-Clause This software is distributed under BSD Public License.
-*/
+ */
 namespace models\beans;
 use framework\MySqlRecord;
 
 
-class BeanStock extends MySqlRecord 
+class BeanStock extends MySqlRecord
 {
     /**
      * A control attribute for the update operation.
@@ -53,8 +53,8 @@ class BeanStock extends MySqlRecord
      *  - Data type: int(11)
      *  - Null : NO
      *  - DB MainPage: PRI
-     *  - Default: 
-     *  - Extra:  
+     *  - Default:
+     *  - Extra:
      * @var int $storeCode
      */
     private $storeCode;
@@ -67,8 +67,8 @@ class BeanStock extends MySqlRecord
      *  - Data type: varchar(40)
      *  - Null : NO
      *  - DB MainPage: PRI
-     *  - Default: 
-     *  - Extra:  
+     *  - Default:
+     *  - Extra:
      * @var string $partCode
      */
     private $partCode;
@@ -81,8 +81,8 @@ class BeanStock extends MySqlRecord
      *  - Data type: decimal(11,2)
      *  - Null : YES
      *  - DB MainPage:
-     *  - Default: 
-     *  - Extra:  
+     *  - Default:
+     *  - Extra:
      * @var float $quantity
      */
     private $quantity;
@@ -103,7 +103,7 @@ class BeanStock extends MySqlRecord
      */
     public function setStoreCode($storeCode)
     {
-        $this->storeCode = (int)$storeCode;
+        $this->storeCode = (string)$storeCode;
     }
 
     /**
@@ -182,25 +182,25 @@ class BeanStock extends MySqlRecord
     }
 
     /**
-    * Gets the name of the managed table
-    * @return string
-    * @category Accessor
-    */
+     * Gets the name of the managed table
+     * @return string
+     * @category Accessor
+     */
     public function getTableName()
     {
         return "stock";
     }
 
     /**
-    * The BeanStock constructor
-    *
-    * It creates and initializes an object in two way:
-    *  - with null (not fetched) data if none ${ClassPkAttributeName} is given.
-    *  - with a fetched data row from the table {TableName} having {TablePkName}=${ClassPkAttributeName}
-	* @param int $storeCode
-	* @param string $partCode
-    * @return BeanStock Object
-    */
+     * The BeanStock constructor
+     *
+     * It creates and initializes an object in two way:
+     *  - with null (not fetched) data if none ${ClassPkAttributeName} is given.
+     *  - with a fetched data row from the table {TableName} having {TablePkName}=${ClassPkAttributeName}
+     * @param int $storeCode
+     * @param string $partCode
+     * @return BeanStock Object
+     */
     public function __construct($storeCode=NULL,$partCode=NULL)
     {
         // $this->connect(DBHOST,DBUSER,DBPASSWORD,DBNAME,DBPORT);
@@ -211,33 +211,34 @@ class BeanStock extends MySqlRecord
     }
 
     /**
-    * The implicit destructor
-    */
+     * The implicit destructor
+     */
     public function __destruct()
     {
         $this->close();
     }
 
     /**
-    * Explicit destructor. It calls the implicit destructor automatically.
-    */
+     * Explicit destructor. It calls the implicit destructor automatically.
+     */
     public function close()
     {
-        unset($this);
+        //unset($this);
     }
 
     /**
-    * Fetchs a table row of stock into the object.
-    *
-    * Fetched table fields values are assigned to class attributes and they can be managed by using
-    * the accessors/modifiers methods of the class.
-	* @param int $storeCode
-	* @param string $partCode
-    * @return int affected selected row
-    * @category DML
-    */
-    public function select($storeCode,$partCode)
+     * Fetchs a table row of stock into the object.
+     *
+     * Fetched table fields values are assigned to class attributes and they can be managed by using
+     * the accessors/modifiers methods of the class.
+     * @param int $storeCode
+     * @param string $partCode
+     * @return int affected selected row
+     * @category DML
+     */
+    public function select($storeCode)//,$partCode)
     {
+        $partCode = $this->getPartCode();
         $sql =  "SELECT * FROM stock WHERE store_code={$this->parseValue($storeCode,'int')} AND part_code={$this->parseValue($partCode,'string')}";
         $this->resetLastSqlError();
         $result =  $this->query($sql);
@@ -252,16 +253,16 @@ class BeanStock extends MySqlRecord
         } else {
             $this->lastSqlError = $this->sqlstate . " - ". $this->error;
         }
-    return $this->affected_rows;
+        return $this->affected_rows;
     }
 
     /**
-    * Deletes a specific row from the table stock
-	* @param int $storeCode
-	* @param string $partCode
-    * @return int affected deleted row
-    * @category DML
-    */
+     * Deletes a specific row from the table stock
+     * @param int $storeCode
+     * @param string $partCode
+     * @return int affected deleted row
+     * @category DML
+     */
     public function delete($storeCode,$partCode)
     {
         $sql = "DELETE FROM stock WHERE store_code={$this->parseValue($storeCode,'int')} AND part_code={$this->parseValue($partCode,'string')}";
@@ -275,19 +276,37 @@ class BeanStock extends MySqlRecord
     }
 
     /**
-    * Insert the current object into a new table row of stock
-    *
-    * All class attributes values defined for mapping all table fields are automatically used during inserting
-    * @return mixed MySQL insert result
-    * @category DML
-    */
+     * Insert the current object into a new table row of stock
+     *
+     * All class attributes values defined for mapping all table fields are automatically used during inserting
+     * @return mixed MySQL insert result
+     * @category DML
+     */
     public function insert()
     {
+
         // $constants = get_defined_constants();
+        $storeName = $this->getStoreCode();
+
+        // ricava store_code da store_name del magazzino
+        $sql3 = "SELECT * FROM stock_store WHERE stock_store.name = '". $storeName. "'";
+
+        $this->resetLastSqlError();
+        $result = $this->query($sql3);
+        $this->resultSet = $result;
+        $this->lastSql = $sql3;
+        if ($result) {
+            $rowObject = $result->fetch_object();
+            $storeCode = (integer)$rowObject->store_code;
+            $this->allowUpdate = true;
+        } else {
+            $this->lastSqlError = $this->sqlstate . " - " . $this->error;
+        }
+
         $sql = <<< SQL
         INSERT INTO stock
         (store_code,part_code,quantity)
-        VALUES({$this->parseValue($this->storeCode)},
+        VALUES({$storeCode},
 			{$this->parseValue($this->partCode,'notNumber')},
 			{$this->parseValue($this->quantity)})
 SQL;
@@ -303,15 +322,15 @@ SQL;
     }
 
     /**
-    * Updates a specific row from the table stock with the values of the current object.
-    *
-    * All class attribute values defined for mapping all table fields are automatically used during updating of selected row.<br>
-    * Null values are used for all attributes not previously setted.
-	* @param int $storeCode
-	* @param string $partCode
-    * @return mixed MySQL update result
-    * @category DML
-    */
+     * Updates a specific row from the table stock with the values of the current object.
+     *
+     * All class attribute values defined for mapping all table fields are automatically used during updating of selected row.<br>
+     * Null values are used for all attributes not previously setted.
+     * @param int $storeCode
+     * @param string $partCode
+     * @return mixed MySQL update result
+     * @category DML
+     */
     public function update($storeCode,$partCode)
     {
         // $constants = get_defined_constants();
@@ -339,16 +358,16 @@ SQL;
     }
 
     /**
-    * Facility for updating a row of stock previously loaded.
-    *
-    * All class attribute values defined for mapping all table fields are automatically used during updating.
-    * @category DML Helper
-    * @return mixed MySQLi update result
-    */
+     * Facility for updating a row of stock previously loaded.
+     *
+     * All class attribute values defined for mapping all table fields are automatically used during updating.
+     * @category DML Helper
+     * @return mixed MySQLi update result
+     */
     public function updateCurrent()
     {
         if (!empty($this->storeCode) && !empty($this->partCode)) {
-           return $this->update($this->storeCode,$this->partCode);
+            return $this->update($this->storeCode,$this->partCode);
         } else {
             return false;
         }
