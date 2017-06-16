@@ -1,0 +1,9 @@
+#Comment: Loads translations defined
+#Load:locales/it-it/controllers/Proj/Movimentazione.txt
+#Load:locales/it-it/controllers/Proj/PartInStoreC.txt
+
+Movimentazione=Rimuovi Stock
+errormsg=Si sono verificati errori:
+New_Record=Rimuovi uno stock
+move_to=Nome magazzino
+Record_Add=Rimuovi
