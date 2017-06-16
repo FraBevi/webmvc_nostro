@@ -75,9 +75,10 @@ class MovimentazioneC extends Controller
         $currentRecord = $record->getCurrentRecord();
 
         // Sets history back for button close and delete
-        $historyBack = $record->getControllerHistoryBack("MovimentazioneC");
+        $historyBack = $record->getControllerHistoryBack("movimentazione_c");
         $record->redirectAfterClose = $historyBack;
         $record->redirectAfterDelete = $historyBack;
+        $record->redirectAfterAdd = $historyBack;
 
         // Sets disallow mode
         $record->disallowMode = $record::DISALLOW_MODE_WITH_HIDE;
