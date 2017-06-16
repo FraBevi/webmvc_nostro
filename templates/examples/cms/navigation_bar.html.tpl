@@ -25,7 +25,7 @@
                         <li><a href="">{RES:LookAndFeel}</a></li>
                     </ul>
                 </li>
-                <li><a href="http://localhost/webmvc_nostro/Proj/index_c">{RES:Exit}</a></li>
+                <li><a href="http://localhost/progetto">{RES:Exit}</a></li>
             </ul>
         </div>
     </div>

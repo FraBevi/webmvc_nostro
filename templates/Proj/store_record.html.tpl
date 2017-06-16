@@ -101,7 +101,6 @@
             </div>
     
         </div>
-         <a href="http://localhost/webmvc_nostro/Proj/part_in_store_c" type="btn btn-primary">Go back</a>
 
 
     </form>

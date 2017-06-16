@@ -72,7 +72,6 @@
 
         </div>
 
-        <a href="http://localhost/webmvc_nostro/Proj/move_c" type="btn btn-primary">Go back</a>
 
 
     </form>
