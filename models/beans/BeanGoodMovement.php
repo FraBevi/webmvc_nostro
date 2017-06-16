@@ -427,7 +427,6 @@ class BeanGoodMovement extends MySqlRecord implements Bean
 
         // ricava store_code da store_name del magazzino in cui deposito la quantità di parte
         $sql3 = "SELECT * FROM stock_store WHERE stock_store.name = '". $sss_in. "'";
-
         $this->resetLastSqlError();
         $result = $this->query($sql3);
         $this->resultSet = $result;
