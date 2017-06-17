@@ -15,12 +15,7 @@
             </div>
 
 
-            <div class="form-group row">
-                <label class="col-sm-2 control-label text-right"><label>{RES:store}</label></label>
-                <div class="col-sm-10">
-                    <input type="text" value="{s_store_code}" name="s_store_code" id="s_store_code" placeholder="{RES:store_code}" class="form-control">
-                </div>
-            </div>
+
 
             <div class="form-group row">
                 <label class="col-sm-2 control-label text-right"><label>{RES:store_name}</label></label>
