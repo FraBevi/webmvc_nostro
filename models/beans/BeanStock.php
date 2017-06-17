@@ -303,21 +303,61 @@ class BeanStock extends MySqlRecord
             $this->lastSqlError = $this->sqlstate . " - " . $this->error;
         }
 
-        $sql = <<< SQL
+
+        /* Select su stock vecchio: effettua un controllo per vedere se esiste.
+           Se esiste, salva la quantità iniziale dello stock e setta exists_old = true.
+           Se non esiste, setta exists_old = false. */
+        $sql =  "SELECT * FROM stock WHERE store_code={$storeCode} AND part_code={$this->parseValue($this->partCode,'notNumber')}";
+        $this->resetLastSqlError();
+        $result =  $this->query($sql);
+        $this->resultSet=$result;
+        $this->lastSql = $sql;
+        if ($result->num_rows > 0){
+            $rowObject = $result->fetch_object();
+            $quantity_initial = (float)$rowObject->quantity;
+            $this->allowUpdate = true;
+            $exists_old = true;
+        } else {
+            $exists_old = false;
+            $this->lastSqlError = $this->sqlstate . " - ". $this->error;
+        }
+
+        //se il vecchio stock non esiste non posso spostare nulla!
+        if(!$exists_old){
+            echo "Errore: lo stock da cui prelevare non esiste!";
+            return;
+            $sql = <<< SQL
         INSERT INTO stock
         (store_code,part_code,quantity)
         VALUES({$storeCode},
 			{$this->parseValue($this->partCode,'notNumber')},
 			{$this->parseValue($this->quantity)})
 SQL;
-        $this->resetLastSqlError();
-        $result = $this->query($sql);
-        $this->lastSql = $sql;
-        if (!$result) {
-            $this->lastSqlError = $this->sqlstate . " - ". $this->error;
+            $this->resetLastSqlError();
+            $result = $this->query($sql);
+            $this->lastSql = $sql;
+            if (!$result) {
+                $this->lastSqlError = $this->sqlstate . " - ". $this->error;
+            } else {
+                $this->allowUpdate = true;
+            }
         } else {
-            $this->allowUpdate = true;
+            $quantity_final = $this->quantity + $quantity_initial;
+        // update il vecchio stock
+            $sql = "UPDATE stock
+                SET 
+				stock.quantity={$quantity_final}
+            WHERE
+                stock.store_code={$storeCode} AND stock.part_code={$this->parseValue($this->partCode,'notNumber')}";
+            $this->resetLastSqlError();
+            $result = $this->query($sql);
+            if (!$result) {
+                $this->lastSqlError = $this->sqlstate . " - ". $this->error;
+            }   else {
+                $this->lastSql = $sql;
+            }
         }
+
         return $result;
     }
 
