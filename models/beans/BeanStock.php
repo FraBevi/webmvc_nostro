@@ -322,7 +322,7 @@ class BeanStock extends MySqlRecord
             $this->lastSqlError = $this->sqlstate . " - ". $this->error;
         }
 
-        //se il vecchio stock non esiste non posso spostare nulla!
+        // se il vecchio stock non esiste non posso spostare nulla!
         if(!$exists_old){
             $sql = <<< SQL
         INSERT INTO stock

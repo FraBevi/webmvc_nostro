@@ -110,7 +110,7 @@
     // Sets all form selects option value
 
     /** Method 1
-     var element = document.getElementById('part_type_code');
+     var  element = document.getElementById('part_type_code');
      element.value = '{part_type_code}';
      */
 

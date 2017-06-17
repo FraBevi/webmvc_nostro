@@ -91,7 +91,7 @@ class AddStockC extends Controller
         $beanAdapter = new BeanAdapter($bean);
         $beanAdapter->select($currentRecord);
 
-        // Handles form submission and updates the bean attributes
+        //  Handles form submission and updates the bean attributes
         // with posted data
         if ($record->isSubmitted()){
             $this->model->setBeanWithPostedData($bean);

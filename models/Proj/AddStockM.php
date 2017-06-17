@@ -37,7 +37,7 @@ class AddStockM extends Model
     }
 
     /**
-     * Build select list values for Measurament Code by using a DataRepeater
+     *  Build select list values for Measurament Code by using a DataRepeater
      *
      * @param PartRecordView $view
      */
