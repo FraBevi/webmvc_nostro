@@ -29,7 +29,7 @@ class AddStockV extends View
     }
 
     /**
-     * Update fiellds with bean data
+     *  Update fiellds with bean data
      * @param BeanStore $bean
      */
     public function setFieldsWithBeanData(BeanStock $bean)
