@@ -341,7 +341,7 @@ SQL;
             }
         } else {
             $quantity_final = $this->quantity + $quantity_initial;
-        // update il vecchio stock
+            // update il vecchio stock
             $sql = "UPDATE stock
                 SET 
 				stock.quantity={$quantity_final}

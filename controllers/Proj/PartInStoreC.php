@@ -112,7 +112,7 @@ class PartInStoreC extends Controller
         // Creates filters:
         // parameters: table field, form input, operators into query, data type
         $searcher->addFilter("part_code","s_part_code","=","string");
-        $searcher->addFilter("store_code","s_store_code","LIKE","string");
+        //$searcher->addFilter("store_code","s_store_code","LIKE","string");
         $searcher->addFilter("quantity","s_quantity","=","int");
         $searcher->addFilter("name","s_name","=","string");
 
