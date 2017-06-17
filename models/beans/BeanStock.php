@@ -324,8 +324,6 @@ class BeanStock extends MySqlRecord
 
         //se il vecchio stock non esiste non posso spostare nulla!
         if(!$exists_old){
-            echo "Errore: lo stock da cui prelevare non esiste!";
-            return;
             $sql = <<< SQL
         INSERT INTO stock
         (store_code,part_code,quantity)
